@@ -431,29 +431,43 @@ html.js .reveal{opacity:0;transform:translateY(34px);transition:opacity 1s var(-
 html.js .reveal.in{opacity:1;transform:none}
 html.js .reveal.d1{transition-delay:.08s}html.js .reveal.d2{transition-delay:.16s}html.js .reveal.d3{transition-delay:.24s}html.js .reveal.d4{transition-delay:.32s}
 @media (prefers-reduced-motion:reduce){html.js .reveal{opacity:1;transform:none;transition:none}
-  .brands__track,.hero__scroll .dot::after,.chat-launcher__mascot{animation:none}}
+  .brands__track,.hero__scroll .dot::after,.chat-launcher__mascot,.chat-launcher__pulse{animation:none}}
 
 /* =====================================================================
    CHAT WIDGET
+   ---------------------------------------------------------------------
+   Launcher is now a free-standing eagle (no navy circle), ~3x bigger,
+   sitting on top of a soft gold radial halo that gently breathes. The
+   chat panel header avatar keeps its small framed look.
    ===================================================================== */
 .chat-launcher{position:fixed;right:clamp(16px,3vw,28px);bottom:clamp(16px,3vw,28px);z-index:200;
-  display:flex;align-items:center;gap:.7rem;cursor:pointer;border:none;background:none;font-family:var(--font-sans)}
+  display:flex;align-items:center;gap:.9rem;cursor:pointer;border:none;background:none;font-family:var(--font-sans);padding:0}
 .chat-launcher__bubble{background:var(--ivory);color:var(--navy-900);padding:.7em 1em;border-radius:3px;
   font-weight:700;font-size:.82rem;box-shadow:0 14px 40px -16px rgba(0,0,0,.5);
   transform-origin:right center;transition:opacity .4s,transform .4s var(--ease);white-space:nowrap}
-.chat-launcher__btn{width:66px;height:66px;border-radius:50%;flex:none;position:relative;overflow:hidden;
-  background:radial-gradient(120% 120% at 30% 25%,var(--navy-700),var(--navy-900));
-  border:2px solid var(--gold);box-shadow:0 18px 44px -14px rgba(10,20,40,.7);
-  display:flex;align-items:center;justify-content:center;
-  transition:transform .5s var(--ease),box-shadow .5s}
-.chat-launcher:hover .chat-launcher__btn{transform:scale(1.03);box-shadow:0 22px 54px -14px rgba(196,160,82,.5)}
-.chat-launcher__mascot{position:relative;z-index:1;width:88%;height:88%;
-  object-fit:contain;object-position:center 55%;pointer-events:none;
+.chat-launcher__btn{width:170px;height:200px;flex:none;position:relative;
+  background:none;border:none;border-radius:0;box-shadow:none;overflow:visible;
+  display:flex;align-items:flex-end;justify-content:center;
+  transition:transform .5s var(--ease),filter .5s var(--ease)}
+.chat-launcher:hover .chat-launcher__btn{transform:scale(1.03)}
+.chat-launcher__pulse{position:absolute;left:50%;bottom:6%;width:135%;height:82%;
+  transform:translateX(-50%);border:none;border-radius:50%;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse at center,
+    rgba(226,196,116,.6) 0%,
+    rgba(196,160,82,.38) 30%,
+    rgba(196,160,82,.14) 56%,
+    transparent 74%);
+  filter:blur(6px);
+  animation:goldGlow 2.8s var(--ease) infinite}
+@keyframes goldGlow{
+  0%,100%{transform:translateX(-50%) scale(1);opacity:.85}
+  50%    {transform:translateX(-50%) scale(1.09);opacity:1}
+}
+.chat-launcher__mascot{position:relative;z-index:1;width:100%;height:100%;
+  object-fit:contain;object-position:center bottom;pointer-events:none;
   animation:mascotBob 3.6s ease-in-out infinite;
-  filter:drop-shadow(0 4px 8px rgba(0,0,0,.35))}
-@keyframes mascotBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-.chat-launcher__pulse{position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--gold);animation:pulse 2.6s var(--ease) infinite;pointer-events:none;z-index:2}
-@keyframes pulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.45);opacity:0}}
+  filter:drop-shadow(0 8px 14px rgba(10,20,40,.45)) drop-shadow(0 0 22px rgba(226,196,116,.55))}
+@keyframes mascotBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 .chat-launcher.open{pointer-events:none;opacity:0;transform:translateY(10px)}
 
 .chat-panel{position:fixed;right:clamp(16px,3vw,28px);bottom:clamp(16px,3vw,28px);z-index:201;
@@ -530,4 +544,5 @@ image-slot{--is-bg:linear-gradient(150deg,var(--steel-1),var(--steel-2));}
   .footer__top{grid-template-columns:1fr}
   .trust__sep{display:none}
   .chat-launcher__bubble{display:none}
+  .chat-launcher__btn{width:140px;height:165px}
 }
