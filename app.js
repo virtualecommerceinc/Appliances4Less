@@ -17,13 +17,27 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  /* ---------- mobile burger -> jump to visit / open menu fallback ---------- */
+  /* ---------- mobile burger -> slide-down nav drawer ---------- */
   var burger = document.getElementById('burger');
-  if (burger) {
-    burger.addEventListener('click', function () {
-      document.getElementById('visit').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  var navLinks = document.getElementById('nav-links');
+  function closeMenu() {
+    if (!nav.classList.contains('menu-open')) return;
+    nav.classList.remove('menu-open');
+    if (burger) burger.setAttribute('aria-expanded', 'false');
+  }
+  function toggleMenu() {
+    var isOpen = nav.classList.toggle('menu-open');
+    if (burger) burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  }
+  if (burger) burger.addEventListener('click', toggleMenu);
+  if (navLinks) {
+    navLinks.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', closeMenu);
     });
   }
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && nav.classList.contains('menu-open')) closeMenu();
+  });
 
   /* ---------- highlight today's hours row ---------- */
   (function () {

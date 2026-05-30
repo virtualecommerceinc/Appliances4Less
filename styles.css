@@ -733,16 +733,45 @@ image-slot{--is-bg:linear-gradient(150deg,var(--steel-1),var(--steel-2));}
   .reviews__lead{grid-template-columns:1fr}
   .visit .wrap{grid-template-columns:1fr}
   .footer__top{grid-template-columns:1fr 1fr}
+  /* MOBILE NAV DRAWER — slides down from below the nav bar.
+     position:absolute relative to .nav (which is position:fixed) so the
+     drawer auto-adjusts to whatever nav height the .scrolled state has. */
+  .nav.menu-open .nav__links{
+    display:flex;flex-direction:column;
+    position:absolute;top:100%;left:0;right:0;
+    background:linear-gradient(180deg,var(--navy-900),var(--navy-950));
+    padding:.4rem var(--gutter) 1.2rem;
+    border-top:1px solid rgba(196,160,82,.2);
+    border-bottom:1px solid rgba(196,160,82,.25);
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.6);
+    gap:0;z-index:119;
+    animation:drawerIn .28s var(--ease)
+  }
+  .nav.menu-open .nav__links a{
+    display:block;width:100%;padding:1.05em 0;
+    font-size:1rem;letter-spacing:.18em;
+    color:var(--ivory);text-shadow:none;
+    border-bottom:1px solid rgba(247,242,232,.08)
+  }
+  .nav.menu-open .nav__links a:last-child{border-bottom:none}
+  .nav.menu-open .nav__links a::after{display:none}
+  .nav.menu-open .nav__links a:hover,
+  .nav.menu-open .nav__links a:focus{color:var(--gold-bright)}
+  @keyframes drawerIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+  /* BURGER -> X morph */
+  .nav__burger span{transform-origin:center;transition:transform .35s var(--ease),opacity .25s}
+  .nav.menu-open .nav__burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav.menu-open .nav__burger span:nth-child(2){opacity:0}
+  .nav.menu-open .nav__burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 }
 @media (max-width:720px){
   .svc--a,.svc--b{grid-column:1/13;margin-top:0}
   .savings__strip{grid-template-columns:1fr 1fr}
   .reviews__row{grid-template-columns:1fr}
   .addr-grid{grid-template-columns:1fr}
-  .footer__top{grid-template-columns:1fr}
+  .footer__top{grid-template-columns:1fr 1fr}
   .trust__sep{display:none}
   .chat-launcher__bubble{display:none}
-  .chat-launcher__btn{width:140px;height:165px}
   .locgallery__stage{aspect-ratio:4/3}
   .locgallery__nav{width:38px;height:38px}
   .locgallery__expand{width:32px;height:32px}
@@ -753,9 +782,24 @@ image-slot{--is-bg:linear-gradient(150deg,var(--steel-1),var(--steel-2));}
   .lightbox__nav--next{right:.6rem}
   .lightbox__close{top:.6rem;right:.6rem;width:40px;height:40px}
   .lightbox__img{max-height:70vh}
-  /* Show the "Tap to explore" chip on touch viewports — desktop visitors
-     read the map as a graphic, mobile visitors get the unlock. */
   .delivery__map-toggle{display:inline-flex}
-  .delivery__map-label{padding:.55em .75em}
-  .delivery__map-label b{font-size:1.25rem}
+  /* MOBILE POLISH — tighten section padding, scale hero hero h1/badge, shrink
+     the eagle launcher so it stops covering the hero headline, and tighten
+     the delivery-map label so it doesn't crowd the small map. */
+  .section{padding:3.5rem var(--gutter)}
+  .hero{padding:6rem var(--gutter) 3rem}
+  .hero h1{font-size:clamp(2.1rem,8.4vw,2.8rem);line-height:1.04}
+  .hero__sub{margin-top:1.1rem;font-size:1rem}
+  .hero__actions{margin-top:1.6rem}
+  .hero__guarantee{margin-top:1.6rem;font-size:.95rem}
+  .hero__frame{aspect-ratio:1/1}
+  .hero__badge{padding:.75rem 1rem;max-width:170px;bottom:1.2rem}
+  .hero__badge .big{font-size:1.5rem}
+  .hero__badge .lbl{font-size:.58rem;margin-top:.3em}
+  .chat-launcher__btn{width:96px;height:116px}
+  .delivery__map-label{padding:.5em .65em;gap:.45em}
+  .delivery__map-label b{font-size:1.1rem}
+  .delivery__map-label em{font-size:.56rem;letter-spacing:.12em}
+  .delivery__map-label span{gap:.25em}
+  .delivery__map-toggle{padding:.45em .75em;font-size:.62rem;bottom:.7rem;right:.7rem}
 }
