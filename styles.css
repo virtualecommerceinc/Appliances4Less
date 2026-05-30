@@ -285,7 +285,7 @@ a{color:inherit;text-decoration:none}
 .savings__stat .n em{font-style:normal;color:var(--crimson);font-size:.6em;vertical-align:.15em}
 
 /* =====================================================================
-   SHOWROOM GALLERY HEADERS (shared by old gallery + new location galleries)
+   GALLERY HEADERS (shared by location sections)
    ===================================================================== */
 .gallery__head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;
   flex-wrap:wrap;margin-bottom:clamp(2.5rem,5vw,4rem)}
@@ -294,43 +294,145 @@ a{color:inherit;text-decoration:none}
 .gallery__head p{color:var(--ink-soft);max-width:32em;line-height:1.65;font-weight:300}
 .gallery__head p a{color:var(--crimson);font-weight:600}
 .gallery__head p a:hover{color:var(--crimson-bright)}
-/* Navy-section variant — paragraph + h2 need ivory tones to stay readable. */
 .section--navy .gallery__head h2{color:var(--ivory)}
 .section--navy .gallery__head p{color:rgba(247,242,232,.74)}
 .section--navy .gallery__head p a{color:var(--gold-bright)}
 .section--navy .gallery__head p a:hover{color:var(--gold)}
 
 /* =====================================================================
-   LOCATION GALLERIES (Showroom + Warehouse)
+   LOCATION GALLERIES — editorial lead + thumb rail
    ---------------------------------------------------------------------
-   Real-photo gallery used by #showroom (4 cols x 2 rows) and #warehouse
-   (3 cols x 2 rows). Each tile is a 4:3 cover image with a stamped
-   uppercase caption — hidden behind a navy gradient on desktop, revealed
-   on hover; always visible as a navy strip below the image on mobile.
+   Each .locgallery has a fixed 3:2 stage (one lead photo with two
+   stacked <img> layers that crossfade on swap) and a horizontal scroll
+   rail of thumbnails beneath. Click a thumb, prev/next arrow, swipe, or
+   ←/→ key to advance. Click the lead or the expand button to open a
+   full-screen lightbox.
    ===================================================================== */
-.locgrid{display:grid;gap:clamp(1rem,2vw,1.7rem)}
-.locgrid--showroom{grid-template-columns:repeat(4,1fr)}
-.locgrid--warehouse{grid-template-columns:repeat(3,1fr)}
+.locgallery{display:flex;flex-direction:column;gap:clamp(1rem,1.6vw,1.4rem)}
 
-.loctile{position:relative;border-radius:4px;overflow:hidden;
-  border:1px solid var(--ivory-2);background:var(--ivory-2);
-  box-shadow:0 14px 36px -22px rgba(10,20,40,.45);
-  transition:transform .55s var(--ease),box-shadow .55s var(--ease)}
-.section--navy .loctile{border-color:rgba(247,242,232,.08);box-shadow:0 18px 44px -22px rgba(0,0,0,.5)}
-.loctile__img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:var(--ivory-2)}
-.loctile__cap{position:absolute;left:0;right:0;bottom:0;margin:0;
-  padding:1.6em 1.1em 1em;color:var(--ivory);
-  font-family:var(--font-sans);font-weight:700;font-size:.72rem;
-  letter-spacing:.12em;text-transform:uppercase;line-height:1.2;
-  background:linear-gradient(180deg,rgba(10,20,40,0) 0%,rgba(10,20,40,.7) 100%);
-  opacity:0;transition:opacity .35s var(--ease);pointer-events:none}
-
-@media (hover:hover){
-  .loctile:hover{transform:scale(1.03);box-shadow:0 28px 56px -22px rgba(10,20,40,.6);z-index:2}
-  .loctile:hover .loctile__cap{opacity:1}
+/* STAGE — the big editorial frame */
+.locgallery__stage{
+  position:relative;width:100%;aspect-ratio:3/2;
+  border-radius:6px;overflow:hidden;
+  background:var(--navy-900);
+  border:1px solid rgba(196,160,82,.35);
+  box-shadow:0 36px 80px -36px rgba(10,20,40,.6),
+             0 0 0 1px rgba(10,20,40,.04);
+  cursor:zoom-in;
+  outline:none;
+}
+.locgallery__stage:focus-visible{box-shadow:0 0 0 3px var(--gold),0 36px 80px -36px rgba(10,20,40,.6)}
+.section--navy .locgallery__stage{
+  box-shadow:0 36px 80px -36px rgba(0,0,0,.7),
+             0 0 0 1px rgba(247,242,232,.04);
 }
 
-/* LOCATION CTA PANEL — used at the bottom of each location section. */
+.locgallery__lead{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block;
+  opacity:0;transition:opacity .55s var(--ease);
+  background:var(--navy-900);
+  pointer-events:none;
+}
+.locgallery__lead.is-visible{opacity:1}
+
+/* META OVERLAY (caption + counter) */
+.locgallery__meta{
+  position:absolute;left:0;right:0;bottom:0;z-index:3;
+  padding:clamp(1.4rem,2.4vw,2.2rem) clamp(1.2rem,2.4vw,2.2rem) clamp(1rem,1.6vw,1.4rem);
+  background:linear-gradient(180deg,rgba(10,20,40,0) 0%,rgba(10,20,40,.75) 65%,rgba(10,20,40,.85) 100%);
+  display:flex;align-items:flex-end;justify-content:space-between;gap:1.2rem;
+  pointer-events:none;
+  color:var(--ivory);
+}
+.locgallery__cap{
+  font-family:var(--font-sans);font-weight:700;
+  font-size:clamp(.78rem,1.1vw,.92rem);
+  letter-spacing:.14em;text-transform:uppercase;
+  line-height:1.25;
+}
+.locgallery__counter{
+  font-family:var(--font-display);font-style:italic;font-weight:500;
+  font-size:clamp(.86rem,1.1vw,1rem);
+  color:var(--gold-bright);
+  letter-spacing:.04em;
+  white-space:nowrap;
+  flex:none;
+}
+.locgallery__counter .sep{opacity:.5;margin:0 .1em}
+
+/* NAV ARROWS */
+.locgallery__nav{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:4;
+  width:clamp(40px,3.4vw,52px);height:clamp(40px,3.4vw,52px);
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(10,20,40,.55);color:var(--ivory);
+  border:1px solid rgba(247,242,232,.18);
+  border-radius:50%;cursor:pointer;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  opacity:.7;transition:opacity .3s,background .3s,border-color .3s,transform .3s var(--ease);
+}
+.locgallery__nav svg{width:50%;height:50%}
+.locgallery__nav--prev{left:clamp(.8rem,1.5vw,1.4rem)}
+.locgallery__nav--next{right:clamp(.8rem,1.5vw,1.4rem)}
+.locgallery__nav:hover{opacity:1;background:rgba(10,20,40,.78);border-color:var(--gold);color:var(--gold-bright)}
+.locgallery__nav:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;opacity:1}
+
+/* EXPAND BUTTON (top-right) */
+.locgallery__expand{
+  position:absolute;top:clamp(.8rem,1.5vw,1.2rem);right:clamp(.8rem,1.5vw,1.2rem);z-index:4;
+  width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(10,20,40,.55);color:var(--ivory);
+  border:1px solid rgba(247,242,232,.18);
+  border-radius:50%;cursor:pointer;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  opacity:.7;transition:opacity .3s,background .3s,border-color .3s;
+}
+.locgallery__expand svg{width:48%;height:48%}
+.locgallery__expand:hover{opacity:1;background:rgba(10,20,40,.78);border-color:var(--gold);color:var(--gold-bright)}
+.locgallery__expand:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;opacity:1}
+
+/* THUMB RAIL */
+.locgallery__rail{
+  display:flex;gap:clamp(.55rem,1vw,.85rem);
+  overflow-x:auto;overflow-y:hidden;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  padding:.3rem .1rem .6rem;
+  scrollbar-width:thin;
+  scrollbar-color:var(--gold-deep) transparent;
+}
+.locgallery__rail::-webkit-scrollbar{height:6px}
+.locgallery__rail::-webkit-scrollbar-track{background:transparent}
+.locgallery__rail::-webkit-scrollbar-thumb{background:var(--gold-deep);border-radius:3px;opacity:.5}
+.section--navy .locgallery__rail{scrollbar-color:var(--gold) transparent}
+.section--navy .locgallery__rail::-webkit-scrollbar-thumb{background:var(--gold)}
+
+.locgallery__thumb{
+  flex:0 0 auto;
+  width:clamp(96px,11vw,128px);aspect-ratio:4/3;
+  border-radius:4px;overflow:hidden;
+  padding:0;background:var(--ivory-2);
+  border:2px solid transparent;
+  cursor:pointer;position:relative;
+  scroll-snap-align:start;
+  transition:border-color .3s,transform .35s var(--ease),box-shadow .35s var(--ease),opacity .3s;
+  opacity:.78;
+}
+.locgallery__thumb img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.locgallery__thumb:hover{opacity:1;transform:translateY(-2px);box-shadow:0 10px 24px -14px rgba(10,20,40,.5)}
+.locgallery__thumb.is-active{
+  opacity:1;
+  border-color:var(--gold);
+  box-shadow:0 0 0 1px var(--gold-bright),0 14px 28px -14px rgba(196,160,82,.5);
+}
+.locgallery__thumb:focus-visible{outline:2px solid var(--gold-bright);outline-offset:3px;opacity:1}
+.section--navy .locgallery__thumb{background:var(--navy-700);opacity:.62}
+.section--navy .locgallery__thumb:hover{opacity:.92}
+.section--navy .locgallery__thumb.is-active{opacity:1}
+
+/* LOCATION CTA PANEL — bottom of each location section */
 .loc-cta{margin-top:clamp(2.5rem,5vw,4rem);
   background:linear-gradient(140deg,var(--navy-700),var(--navy-900));
   color:var(--ivory);
@@ -341,6 +443,77 @@ a{color:inherit;text-decoration:none}
 .loc-cta__txt{font-family:var(--font-display);font-weight:500;font-style:italic;
   font-size:clamp(1.1rem,1.8vw,1.4rem);line-height:1.35;color:var(--ivory);max-width:38em}
 .loc-cta__btns{display:flex;gap:.7rem;flex-wrap:wrap}
+
+/* =====================================================================
+   LIGHTBOX (full-screen photo viewer, shared across both galleries)
+   ===================================================================== */
+.lightbox{
+  position:fixed;inset:0;z-index:300;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s var(--ease);
+}
+.lightbox.open{opacity:1;pointer-events:auto}
+.lightbox__backdrop{
+  position:absolute;inset:0;
+  background:rgba(7,15,32,.95);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  cursor:zoom-out;
+}
+.lightbox__fig{
+  position:relative;z-index:1;
+  max-width:min(92vw,1600px);max-height:88vh;
+  display:flex;flex-direction:column;align-items:center;gap:1rem;
+  pointer-events:none;
+}
+.lightbox__img{
+  max-width:100%;max-height:78vh;
+  object-fit:contain;display:block;
+  border-radius:4px;
+  box-shadow:0 30px 80px rgba(0,0,0,.6);
+  pointer-events:auto;cursor:zoom-out;
+  background:var(--navy-950);
+}
+.lightbox__meta{
+  display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;justify-content:center;
+  text-align:center;pointer-events:none;
+}
+.lightbox__cap{
+  font-family:var(--font-sans);font-weight:700;
+  font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ivory);
+}
+.lightbox__counter{
+  font-family:var(--font-display);font-style:italic;
+  font-size:.92rem;color:var(--gold-bright);letter-spacing:.04em;
+}
+.lightbox__close{
+  position:absolute;top:clamp(1rem,2.4vw,1.8rem);right:clamp(1rem,2.4vw,1.8rem);z-index:2;
+  width:48px;height:48px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(247,242,232,.1);color:var(--ivory);
+  border:1px solid rgba(247,242,232,.22);
+  border-radius:50%;cursor:pointer;
+  transition:background .3s,border-color .3s,color .3s;
+}
+.lightbox__close svg{width:18px;height:18px}
+.lightbox__close:hover{background:rgba(247,242,232,.22);border-color:var(--gold);color:var(--gold-bright)}
+.lightbox__nav{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:2;
+  width:clamp(48px,5vw,64px);height:clamp(48px,5vw,64px);
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(247,242,232,.1);color:var(--ivory);
+  border:1px solid rgba(247,242,232,.2);
+  border-radius:50%;cursor:pointer;
+  transition:background .3s,border-color .3s,color .3s,transform .3s var(--ease);
+}
+.lightbox__nav svg{width:42%;height:42%}
+.lightbox__nav--prev{left:clamp(1rem,3vw,2.4rem)}
+.lightbox__nav--next{right:clamp(1rem,3vw,2.4rem)}
+.lightbox__nav:hover{background:rgba(247,242,232,.22);border-color:var(--gold);color:var(--gold-bright);transform:translateY(-50%) scale(1.05)}
+.lightbox__close:focus-visible,.lightbox__nav:focus-visible{outline:2px solid var(--gold-bright);outline-offset:3px}
+
+body.lightbox-open{overflow:hidden}
 
 /* =====================================================================
    DELIVERY (navy cinematic)
@@ -442,20 +615,20 @@ a{color:inherit;text-decoration:none}
 /* =====================================================================
    SCROLL REVEAL
    ===================================================================== */
-/* hidden state is gated on .js so content is ALWAYS visible if JS/transitions don't run */
 html.js .reveal{opacity:0;transform:translateY(34px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 html.js .reveal.in{opacity:1;transform:none}
 html.js .reveal.d1{transition-delay:.08s}html.js .reveal.d2{transition-delay:.16s}html.js .reveal.d3{transition-delay:.24s}html.js .reveal.d4{transition-delay:.32s}
-@media (prefers-reduced-motion:reduce){html.js .reveal{opacity:1;transform:none;transition:none}
-  .brands__track,.hero__scroll .dot::after,.chat-launcher__mascot,.chat-launcher__pulse,.loctile,.loctile__cap{animation:none;transition:none}
-  .loctile:hover{transform:none}}
+@media (prefers-reduced-motion:reduce){
+  html.js .reveal{opacity:1;transform:none;transition:none}
+  .brands__track,.hero__scroll .dot::after,.chat-launcher__mascot,.chat-launcher__pulse{animation:none}
+  .locgallery__lead{transition:none}
+  .locgallery__thumb,.locgallery__nav,.locgallery__expand,.lightbox,.lightbox__nav{transition:none}
+  .locgallery__thumb:hover{transform:none}
+  html{scroll-behavior:auto}
+}
 
 /* =====================================================================
    CHAT WIDGET
-   ---------------------------------------------------------------------
-   Launcher is now a free-standing eagle (no navy circle), ~3x bigger,
-   sitting on top of a soft gold radial halo that gently breathes. The
-   chat panel header avatar keeps its small framed look.
    ===================================================================== */
 .chat-launcher{position:fixed;right:clamp(16px,3vw,28px);bottom:clamp(16px,3vw,28px);z-index:200;
   display:flex;align-items:center;gap:.9rem;cursor:pointer;border:none;background:none;font-family:var(--font-sans);padding:0}
@@ -551,7 +724,6 @@ image-slot{--is-bg:linear-gradient(150deg,var(--steel-1),var(--steel-2));}
   .reviews__lead{grid-template-columns:1fr}
   .visit .wrap{grid-template-columns:1fr}
   .footer__top{grid-template-columns:1fr 1fr}
-  .locgrid--showroom,.locgrid--warehouse{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:720px){
   .svc--a,.svc--b{grid-column:1/13;margin-top:0}
@@ -562,12 +734,15 @@ image-slot{--is-bg:linear-gradient(150deg,var(--steel-1),var(--steel-2));}
   .trust__sep{display:none}
   .chat-launcher__bubble{display:none}
   .chat-launcher__btn{width:140px;height:165px}
-  .locgrid--showroom,.locgrid--warehouse{grid-template-columns:1fr}
-  /* On mobile, the caption sits as an always-visible navy strip BELOW
-     each tile — not a hover overlay. */
-  .loctile{overflow:visible}
-  .loctile__img{border-radius:4px 4px 0 0}
-  .loctile__cap{position:static;opacity:1;background:var(--navy-900);
-    padding:.72em 1em;border-radius:0 0 4px 4px;font-size:.7rem}
+  /* Gallery on mobile: stage stays 4:3 (better for portrait photos), arrows shrink. */
+  .locgallery__stage{aspect-ratio:4/3}
+  .locgallery__nav{width:38px;height:38px}
+  .locgallery__expand{width:32px;height:32px}
+  .locgallery__thumb{width:84px}
   .loc-cta{flex-direction:column;align-items:flex-start}
+  .lightbox__nav{width:42px;height:42px}
+  .lightbox__nav--prev{left:.6rem}
+  .lightbox__nav--next{right:.6rem}
+  .lightbox__close{top:.6rem;right:.6rem;width:40px;height:40px}
+  .lightbox__img{max-height:70vh}
 }

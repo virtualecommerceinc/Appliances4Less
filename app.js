@@ -38,8 +38,6 @@
   var ioFired = false;
   function markIn(el) {
     el.classList.add('in');
-    // failsafe: after the animation window, force the final state inline in case the
-    // 0->1 transition never advances (observed in some embedded/preview engines)
     setTimeout(function () {
       if (getComputedStyle(el).opacity !== '1') {
         el.style.transition = 'none';
@@ -73,14 +71,11 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
     reveals.slice().forEach(function (r) { io.observe(r); });
   }
-  // fallback: run a rect-based check on load/scroll/resize and once shortly after init
   window.addEventListener('scroll', revealInView, { passive: true });
   window.addEventListener('resize', revealInView);
   window.addEventListener('load', revealInView);
   revealInView();
   setTimeout(revealInView, 400);
-  // ultimate safety net: if neither IO nor scroll reveal ran (broken/headless engines),
-  // force everything visible so content is never trapped at opacity 0
   setTimeout(function () {
     if (ioFired) return;
     reveals.slice().forEach(function (el) {
@@ -108,6 +103,244 @@
       if (!ticking) { window.requestAnimationFrame(parallax); ticking = true; }
     }, { passive: true });
   }
+
+  /* =====================================================================
+     LOCATION GALLERIES — editorial lead + thumb rail + lightbox
+     ---------------------------------------------------------------------
+     Each .locgallery is its own scoped instance. The lightbox is a single
+     shared modal that adopts whichever gallery opened it; prev/next inside
+     the lightbox drives that gallery's selectIndex(), which then syncs the
+     lightbox content back via Lightbox.sync().
+     ===================================================================== */
+  var REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // -- Lightbox (set up first so each gallery instance can reference it).
+  var Lightbox = (function () {
+    var el = document.getElementById('lightbox');
+    if (!el) return { open: function () {}, close: function () {}, sync: function () {}, get openFor() { return null; } };
+    var img = el.querySelector('.lightbox__img');
+    var cap = el.querySelector('.lightbox__cap');
+    var counter = el.querySelector('.lightbox__counter');
+    var closeBtn = el.querySelector('.lightbox__close');
+    var prevBtn = el.querySelector('.lightbox__nav--prev');
+    var nextBtn = el.querySelector('.lightbox__nav--next');
+    var backdrop = el.querySelector('.lightbox__backdrop');
+    var openFor = null;
+    var prevFocus = null;
+
+    function pad(n) { return String(n).length < 2 ? '0' + n : String(n); }
+
+    function sync() {
+      if (!openFor) return;
+      var p = openFor.photos[openFor.idx];
+      if (!p) return;
+      img.src = p.src;
+      img.alt = p.alt;
+      cap.textContent = p.cap;
+      counter.textContent = pad(openFor.idx + 1) + ' / ' + pad(openFor.photos.length);
+    }
+    function open(inst) {
+      openFor = inst;
+      prevFocus = document.activeElement;
+      el.classList.add('open');
+      el.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('lightbox-open');
+      sync();
+      // Defer focus so the transition doesn't steal it mid-frame.
+      setTimeout(function () { if (closeBtn) closeBtn.focus(); }, 80);
+    }
+    function close() {
+      el.classList.remove('open');
+      el.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('lightbox-open');
+      openFor = null;
+      if (prevFocus && typeof prevFocus.focus === 'function') prevFocus.focus();
+    }
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (backdrop) backdrop.addEventListener('click', close);
+    if (img) img.addEventListener('click', close);
+    if (prevBtn) prevBtn.addEventListener('click', function () { if (openFor) openFor.select(openFor.idx - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { if (openFor) openFor.select(openFor.idx + 1); });
+
+    // Touch swipe inside the lightbox — left to advance, right to go back.
+    var lbsx = 0, lbsy = 0, lbtrack = false;
+    el.addEventListener('touchstart', function (e) {
+      if (!openFor || e.touches.length !== 1) return;
+      lbsx = e.touches[0].clientX; lbsy = e.touches[0].clientY; lbtrack = true;
+    }, { passive: true });
+    el.addEventListener('touchend', function (e) {
+      if (!lbtrack || !openFor) return; lbtrack = false;
+      var t = e.changedTouches[0];
+      var dx = t.clientX - lbsx, dy = t.clientY - lbsy;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+        if (dx < 0) openFor.select(openFor.idx + 1); else openFor.select(openFor.idx - 1);
+      }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (!el.classList.contains('open')) return;
+      if (e.key === 'Escape') { e.stopPropagation(); close(); }
+      else if (e.key === 'ArrowLeft' && openFor) { e.preventDefault(); openFor.select(openFor.idx - 1); }
+      else if (e.key === 'ArrowRight' && openFor) { e.preventDefault(); openFor.select(openFor.idx + 1); }
+    }, true);
+    return { open: open, close: close, sync: sync, get openFor() { return openFor; } };
+  })();
+
+  // -- Per-gallery instances
+  [].slice.call(document.querySelectorAll('.locgallery')).forEach(function (root) {
+    var leadA = root.querySelector('.locgallery__lead--a');
+    var leadB = root.querySelector('.locgallery__lead--b');
+    var cap = root.querySelector('.locgallery__cap');
+    var counterCur = root.querySelector('.locgallery__counter .cur');
+    var counterTot = root.querySelector('.locgallery__counter .tot');
+    var thumbs = [].slice.call(root.querySelectorAll('.locgallery__thumb'));
+    var prevBtn = root.querySelector('.locgallery__nav--prev');
+    var nextBtn = root.querySelector('.locgallery__nav--next');
+    var expandBtn = root.querySelector('.locgallery__expand');
+    var stage = root.querySelector('.locgallery__stage');
+    var rail = root.querySelector('.locgallery__rail');
+    if (!leadA || !leadB || !thumbs.length || !stage) return;
+
+    var photos = thumbs.map(function (t) {
+      return {
+        src: t.getAttribute('data-src') || '',
+        alt: t.getAttribute('data-alt') || '',
+        cap: t.getAttribute('data-cap') || ''
+      };
+    });
+    var idx = 0;
+    var visibleLayer = 'a'; // which of the two stacked <img> layers is currently shown
+    if (counterTot) counterTot.textContent = String(photos.length).length < 2 ? '0' + photos.length : String(photos.length);
+
+    function pad(n) { return String(n).length < 2 ? '0' + n : String(n); }
+    function mod(n, m) { return ((n % m) + m) % m; }
+
+    function preload(i) {
+      if (i < 0 || i >= photos.length) return;
+      var im = new Image();
+      im.src = photos[i].src;
+    }
+
+    function select(target) {
+      var i = mod(target, photos.length);
+      if (i === idx) {
+        if (Lightbox.openFor === inst) Lightbox.sync();
+        return;
+      }
+      var p = photos[i];
+      var incoming = visibleLayer === 'a' ? leadB : leadA;
+      var outgoing = visibleLayer === 'a' ? leadA : leadB;
+
+      // Preload before swapping so the crossfade lands on a decoded image.
+      var pre = new Image();
+      pre.onload = function () {
+        incoming.src = p.src;
+        incoming.alt = p.alt;
+        // Force a reflow so the opacity transition fires (otherwise setting
+        // .is-visible on a freshly src'd image can batch the paint).
+        // eslint-disable-next-line no-unused-expressions
+        incoming.offsetWidth;
+        incoming.classList.add('is-visible');
+        outgoing.classList.remove('is-visible');
+        visibleLayer = visibleLayer === 'a' ? 'b' : 'a';
+      };
+      pre.onerror = function () {
+        // Fallback: still swap; will show broken-image icon rather than freeze.
+        incoming.src = p.src;
+        incoming.alt = p.alt;
+        incoming.classList.add('is-visible');
+        outgoing.classList.remove('is-visible');
+        visibleLayer = visibleLayer === 'a' ? 'b' : 'a';
+      };
+      pre.src = p.src;
+
+      if (cap) cap.textContent = p.cap;
+      if (counterCur) counterCur.textContent = pad(i + 1);
+
+      thumbs.forEach(function (t, j) {
+        var on = j === i;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        if (on) t.classList.add('is-active'); else t.classList.remove('is-active');
+      });
+
+      idx = i;
+      preload(mod(i + 1, photos.length));
+      preload(mod(i - 1, photos.length));
+
+      // Keep the active thumb in view in the horizontal rail.
+      var active = thumbs[i];
+      if (active && rail) {
+        var rRect = rail.getBoundingClientRect();
+        var aRect = active.getBoundingClientRect();
+        if (aRect.left < rRect.left + 8 || aRect.right > rRect.right - 8) {
+          // Custom horizontal scroll so we don't also scroll the page.
+          var target = active.offsetLeft - (rail.clientWidth - active.clientWidth) / 2;
+          if (typeof rail.scrollTo === 'function') {
+            rail.scrollTo({ left: target, behavior: REDUCED_MOTION ? 'auto' : 'smooth' });
+          } else {
+            rail.scrollLeft = target;
+          }
+        }
+      }
+
+      if (Lightbox.openFor === inst) Lightbox.sync();
+    }
+
+    // Public instance handle
+    var inst = {
+      root: root,
+      photos: photos,
+      get idx() { return idx; },
+      select: select
+    };
+
+    // Wire thumbs
+    thumbs.forEach(function (t, j) {
+      t.addEventListener('click', function () { select(j); });
+    });
+
+    // Wire arrows
+    if (prevBtn) prevBtn.addEventListener('click', function (e) { e.stopPropagation(); select(idx - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function (e) { e.stopPropagation(); select(idx + 1); });
+
+    // Keyboard: when focus is anywhere in the gallery, ← / → cycle.
+    root.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); select(idx - 1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); select(idx + 1); }
+    });
+
+    // Touch swipe on the stage
+    var sx = 0, sy = 0, tracking = false;
+    stage.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) return;
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+      tracking = true;
+    }, { passive: true });
+    stage.addEventListener('touchend', function (e) {
+      if (!tracking) return;
+      tracking = false;
+      var t = e.changedTouches[0];
+      var dx = t.clientX - sx, dy = t.clientY - sy;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+        if (dx < 0) select(idx + 1); else select(idx - 1);
+      }
+    });
+
+    // Open lightbox from the stage or the expand button.
+    function openLightbox(e) {
+      // Don't open the lightbox when the user clicks an arrow that sits on top of the stage.
+      if (e && e.target && e.target.closest && e.target.closest('.locgallery__nav,.locgallery__expand')) return;
+      Lightbox.open(inst);
+    }
+    stage.addEventListener('click', openLightbox);
+    if (expandBtn) expandBtn.addEventListener('click', function (e) { e.stopPropagation(); Lightbox.open(inst); });
+
+    // Warm cache with the first neighbors so initial nav is instant.
+    if (photos.length > 1) {
+      preload(1);
+      preload(photos.length - 1);
+    }
+  });
 
   /* =====================================================================
      A4L CONCIERGE CHATBOT
@@ -270,7 +503,12 @@
   if (launcher) launcher.addEventListener('click', openChat);
   if (closeBtn) closeBtn.addEventListener('click', closeChat);
   if (form) form.addEventListener('submit', function (e) { e.preventDefault(); send(input.value); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && panel.classList.contains('open')) closeChat(); });
+  document.addEventListener('keydown', function (e) {
+    // Don't close the chat if the lightbox is open — its Esc handler runs first
+    // in capture phase and stops propagation, so this only fires when the
+    // lightbox is closed.
+    if (e.key === 'Escape' && panel.classList.contains('open')) closeChat();
+  });
 
   /* ---------- "Ask about this" buttons -> open chat prefilled ---------- */
   document.querySelectorAll('[data-ask]').forEach(function (btn) {

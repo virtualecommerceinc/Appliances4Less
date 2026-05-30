@@ -148,42 +148,81 @@
       <p class="reveal d1">The retail showroom at 2760 Erie Blvd E is where most of our neighbors meet their next appliance. New and scratch &amp; dent — refrigerators, ranges, washers, dryers, dishwashers — all on the floor, all priced to save you money. Stock rotates fast; if you see something you love online, call or text <a href="tel:+13158889998"><strong>(315)&nbsp;888-9998</strong></a> to confirm it's still here.</p>
     </div>
 
-    <div class="locgrid locgrid--showroom">
-      <figure class="loctile reveal">
-        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/showroom/showroom-range-row-erie-blvd-window.jpg" alt="Row of new and scratch-and-dent ranges on the retail showroom floor, with the front window looking out onto Erie Blvd" />
-        <figcaption class="loctile__cap">Range floor, Erie Blvd</figcaption>
-      </figure>
-      <figure class="loctile reveal d1">
-        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/showroom/showroom-stackable-laundry-combos.jpg" alt="Stackable GE washer and dryer combos in the retail showroom, with handwritten yellow Was-and-Now price tags" />
-        <figcaption class="loctile__cap">Stackable laundry combos</figcaption>
-      </figure>
-      <figure class="loctile reveal d2">
-        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/showroom/showroom-top-load-washers-row-tags.jpg" alt="Row of top-load washers in the retail showroom, each marked with handwritten yellow Was-and-Now price tags" />
-        <figcaption class="loctile__cap">Top-load washers — Was / Now</figcaption>
-      </figure>
-      <figure class="loctile reveal d3">
-        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/showroom/showroom-front-load-laundry-stack-wall.jpg" alt="A wall of stacked front-load washer and dryer units in the retail showroom" />
-        <figcaption class="loctile__cap">Front-load stack wall</figcaption>
-      </figure>
-      <figure class="loctile reveal">
-        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/showroom/showroom-front-load-pairs.jpg" alt="Matched front-load washer and dryer pairs on display in the retail showroom" />
-        <figcaption class="loctile__cap">Matched front-load pairs</figcaption>
-      </figure>
-      <figure class="loctile reveal d1">
-        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/showroom/showroom-top-load-washers-pair.jpg" alt="Clean staging of a top-load washer pair on the retail showroom floor, with plants in the background" />
-        <figcaption class="loctile__cap">On the floor this week</figcaption>
-      </figure>
-      <figure class="loctile reveal d2">
-        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/showroom/showroom-range-aisle-street-view.jpg" alt="Aisle of ranges in stainless, black-stainless, and white finishes on the retail showroom floor" />
-        <figcaption class="loctile__cap">Ranges, all finishes</figcaption>
-      </figure>
-      <figure class="loctile reveal d3">
-        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/showroom/showroom-laundry-and-fridge-wide.jpg" alt="Wide view across the retail showroom aisle showing both laundry and refrigerator sections" />
-        <figcaption class="loctile__cap">Laundry and refrigerators</figcaption>
-      </figure>
+    <div class="locgallery reveal d2" data-gallery="showroom">
+      <div class="locgallery__stage" tabindex="0" aria-label="Showroom photo viewer">
+        <img class="locgallery__lead locgallery__lead--a is-visible"
+             src="assets/photos/showroom/showroom-range-row-erie-blvd-window.jpg"
+             alt="Row of new and scratch-and-dent ranges on the retail showroom floor, with the front window looking out onto Erie Blvd"
+             decoding="async" />
+        <img class="locgallery__lead locgallery__lead--b"
+             src="" alt="" decoding="async" />
+        <button class="locgallery__nav locgallery__nav--prev" type="button" aria-label="Previous photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="locgallery__nav locgallery__nav--next" type="button" aria-label="Next photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+        <button class="locgallery__expand" type="button" aria-label="View photo at full size">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+        </button>
+        <div class="locgallery__meta">
+          <figcaption class="locgallery__cap">Range floor, Erie Blvd</figcaption>
+          <div class="locgallery__counter" aria-live="polite"><span class="cur">01</span><span class="sep"> / </span><span class="tot">08</span></div>
+        </div>
+      </div>
+      <div class="locgallery__rail" role="tablist" aria-label="Showroom photos">
+        <button class="locgallery__thumb is-active" type="button" role="tab" aria-selected="true"
+                data-src="assets/photos/showroom/showroom-range-row-erie-blvd-window.jpg"
+                data-cap="Range floor, Erie Blvd"
+                data-alt="Row of new and scratch-and-dent ranges on the retail showroom floor, with the front window looking out onto Erie Blvd">
+          <img loading="lazy" decoding="async" src="assets/photos/showroom/showroom-range-row-erie-blvd-window.jpg" alt="" />
+        </button>
+        <button class="locgallery__thumb" type="button" role="tab" aria-selected="false"
+                data-src="assets/photos/showroom/showroom-stackable-laundry-combos.jpg"
+                data-cap="Stackable laundry combos"
+                data-alt="Stackable GE washer and dryer combos in the retail showroom, with handwritten yellow Was-and-Now price tags">
+          <img loading="lazy" decoding="async" src="assets/photos/showroom/showroom-stackable-laundry-combos.jpg" alt="" />
+        </button>
+        <button class="locgallery__thumb" type="button" role="tab" aria-selected="false"
+                data-src="assets/photos/showroom/showroom-top-load-washers-row-tags.jpg"
+                data-cap="Top-load washers — Was / Now"
+                data-alt="Row of top-load washers in the retail showroom, each marked with handwritten yellow Was-and-Now price tags">
+          <img loading="lazy" decoding="async" src="assets/photos/showroom/showroom-top-load-washers-row-tags.jpg" alt="" />
+        </button>
+        <button class="locgallery__thumb" type="button" role="tab" aria-selected="false"
+                data-src="assets/photos/showroom/showroom-front-load-laundry-stack-wall.jpg"
+                data-cap="Front-load stack wall"
+                data-alt="A wall of stacked front-load washer and dryer units in the retail showroom">
+          <img loading="lazy" decoding="async" src="assets/photos/showroom/showroom-front-load-laundry-stack-wall.jpg" alt="" />
+        </button>
+        <button class="locgallery__thumb" type="button" role="tab" aria-selected="false"
+                data-src="assets/photos/showroom/showroom-front-load-pairs.jpg"
+                data-cap="Matched front-load pairs"
+                data-alt="Matched front-load washer and dryer pairs on display in the retail showroom">
+          <img loading="lazy" decoding="async" src="assets/photos/showroom/showroom-front-load-pairs.jpg" alt="" />
+        </button>
+        <button class="locgallery__thumb" type="button" role="tab" aria-selected="false"
+                data-src="assets/photos/showroom/showroom-top-load-washers-pair.jpg"
+                data-cap="On the floor this week"
+                data-alt="Clean staging of a top-load washer pair on the retail showroom floor, with plants in the background">
+          <img loading="lazy" decoding="async" src="assets/photos/showroom/showroom-top-load-washers-pair.jpg" alt="" />
+        </button>
+        <button class="locgallery__thumb" type="button" role="tab" aria-selected="false"
+                data-src="assets/photos/showroom/showroom-range-aisle-street-view.jpg"
+                data-cap="Ranges, all finishes"
+                data-alt="Aisle of ranges in stainless, black-stainless, and white finishes on the retail showroom floor">
+          <img loading="lazy" decoding="async" src="assets/photos/showroom/showroom-range-aisle-street-view.jpg" alt="" />
+        </button>
+        <button class="locgallery__thumb" type="button" role="tab" aria-selected="false"
+                data-src="assets/photos/showroom/showroom-laundry-and-fridge-wide.jpg"
+                data-cap="Laundry and refrigerators"
+                data-alt="Wide view across the retail showroom aisle showing both laundry and refrigerator sections">
+          <img loading="lazy" decoding="async" src="assets/photos/showroom/showroom-laundry-and-fridge-wide.jpg" alt="" />
+        </button>
+      </div>
     </div>
 
-    <div class="loc-cta reveal">
+    <div class="loc-cta reveal d3">
       <p class="loc-cta__txt">Stop by the showroom — 2760 Erie Blvd E. Mon–Sat 10–7, Sun 10–6.</p>
       <div class="loc-cta__btns">
         <a href="tel:+13158889998" class="btn btn--primary">Call (315) 888-9998 <span class="arr">→</span></a>
@@ -204,34 +243,69 @@
       <p class="reveal d1">Landlords, contractors, flippers, builders — if you're outfitting a property, the wholesale warehouse at 835 Canal St is your shortcut. Cavernous aisles of new and scratch &amp; dent fridges, ranges, washers, dryers, dishwashers. Pricing is set up for volume. Call ahead so we can stage what you need.</p>
     </div>
 
-    <div class="locgrid locgrid--warehouse">
-      <figure class="loctile reveal">
-        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/warehouse/warehouse-fridge-aisle-stainless.jpg" alt="Long aisle of stainless side-by-side and french-door refrigerators in the Canal St wholesale warehouse" />
-        <figcaption class="loctile__cap">Stainless fridge aisle, Canal St</figcaption>
-      </figure>
-      <figure class="loctile reveal d1">
-        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/warehouse/warehouse-fridge-aisle-side-by-side.jpg" alt="Cavernous wholesale warehouse aisle of side-by-side and french-door refrigerators in mixed finishes" />
-        <figcaption class="loctile__cap">Side-by-side and french-door</figcaption>
-      </figure>
-      <figure class="loctile reveal d2">
-        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/warehouse/warehouse-fridge-aisle-top-mount.jpg" alt="Top-mount refrigerators stacked for volume pricing in the wholesale warehouse" />
-        <figcaption class="loctile__cap">Top-mount fridges, volume pricing</figcaption>
-      </figure>
-      <figure class="loctile reveal">
-        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/warehouse/warehouse-dishwasher-cluster.jpg" alt="Cluster of dishwashers ready to ship from the wholesale warehouse" />
-        <figcaption class="loctile__cap">Dishwashers ready to move</figcaption>
-      </figure>
-      <figure class="loctile reveal d1">
-        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/warehouse/warehouse-dishwasher-rack-handwritten-tags.jpg" alt="Handmade lumber shelving holding dishwashers in the wholesale warehouse, with handwritten yellow Was-and-Now price tags" />
-        <figcaption class="loctile__cap">Was / Now — every price is real</figcaption>
-      </figure>
-      <figure class="loctile reveal d2">
-        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/delivery/delivery-inside-truck-laundry-load.jpg" alt="Inside the delivery semi-truck, packed with crated washers and dryers leaving the Canal St warehouse" />
-        <figcaption class="loctile__cap">Delivery day — leaving Canal St</figcaption>
-      </figure>
+    <div class="locgallery reveal d2" data-gallery="warehouse">
+      <div class="locgallery__stage" tabindex="0" aria-label="Warehouse photo viewer">
+        <img class="locgallery__lead locgallery__lead--a is-visible"
+             src="assets/photos/warehouse/warehouse-fridge-aisle-stainless.jpg"
+             alt="Long aisle of stainless side-by-side and french-door refrigerators in the Canal St wholesale warehouse"
+             decoding="async" />
+        <img class="locgallery__lead locgallery__lead--b"
+             src="" alt="" decoding="async" />
+        <button class="locgallery__nav locgallery__nav--prev" type="button" aria-label="Previous photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="locgallery__nav locgallery__nav--next" type="button" aria-label="Next photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+        <button class="locgallery__expand" type="button" aria-label="View photo at full size">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+        </button>
+        <div class="locgallery__meta">
+          <figcaption class="locgallery__cap">Stainless fridge aisle, Canal St</figcaption>
+          <div class="locgallery__counter" aria-live="polite"><span class="cur">01</span><span class="sep"> / </span><span class="tot">06</span></div>
+        </div>
+      </div>
+      <div class="locgallery__rail" role="tablist" aria-label="Warehouse photos">
+        <button class="locgallery__thumb is-active" type="button" role="tab" aria-selected="true"
+                data-src="assets/photos/warehouse/warehouse-fridge-aisle-stainless.jpg"
+                data-cap="Stainless fridge aisle, Canal St"
+                data-alt="Long aisle of stainless side-by-side and french-door refrigerators in the Canal St wholesale warehouse">
+          <img loading="lazy" decoding="async" src="assets/photos/warehouse/warehouse-fridge-aisle-stainless.jpg" alt="" />
+        </button>
+        <button class="locgallery__thumb" type="button" role="tab" aria-selected="false"
+                data-src="assets/photos/warehouse/warehouse-fridge-aisle-side-by-side.jpg"
+                data-cap="Side-by-side and french-door"
+                data-alt="Cavernous wholesale warehouse aisle of side-by-side and french-door refrigerators in mixed finishes">
+          <img loading="lazy" decoding="async" src="assets/photos/warehouse/warehouse-fridge-aisle-side-by-side.jpg" alt="" />
+        </button>
+        <button class="locgallery__thumb" type="button" role="tab" aria-selected="false"
+                data-src="assets/photos/warehouse/warehouse-fridge-aisle-top-mount.jpg"
+                data-cap="Top-mount fridges, volume pricing"
+                data-alt="Top-mount refrigerators stacked for volume pricing in the wholesale warehouse">
+          <img loading="lazy" decoding="async" src="assets/photos/warehouse/warehouse-fridge-aisle-top-mount.jpg" alt="" />
+        </button>
+        <button class="locgallery__thumb" type="button" role="tab" aria-selected="false"
+                data-src="assets/photos/warehouse/warehouse-dishwasher-cluster.jpg"
+                data-cap="Dishwashers ready to move"
+                data-alt="Cluster of dishwashers ready to ship from the wholesale warehouse">
+          <img loading="lazy" decoding="async" src="assets/photos/warehouse/warehouse-dishwasher-cluster.jpg" alt="" />
+        </button>
+        <button class="locgallery__thumb" type="button" role="tab" aria-selected="false"
+                data-src="assets/photos/warehouse/warehouse-dishwasher-rack-handwritten-tags.jpg"
+                data-cap="Was / Now — every price is real"
+                data-alt="Handmade lumber shelving holding dishwashers in the wholesale warehouse, with handwritten yellow Was-and-Now price tags">
+          <img loading="lazy" decoding="async" src="assets/photos/warehouse/warehouse-dishwasher-rack-handwritten-tags.jpg" alt="" />
+        </button>
+        <button class="locgallery__thumb" type="button" role="tab" aria-selected="false"
+                data-src="assets/photos/delivery/delivery-inside-truck-laundry-load.jpg"
+                data-cap="Delivery day — leaving Canal St"
+                data-alt="Inside the delivery semi-truck, packed with crated washers and dryers leaving the Canal St warehouse">
+          <img loading="lazy" decoding="async" src="assets/photos/delivery/delivery-inside-truck-laundry-load.jpg" alt="" />
+        </button>
+      </div>
     </div>
 
-    <div class="loc-cta reveal">
+    <div class="loc-cta reveal d3">
       <p class="loc-cta__txt">Need bulk pricing? Tell us what you're outfitting and we'll quote it.</p>
       <div class="loc-cta__btns">
         <a href="tel:+13158889998" class="btn btn--primary">Call (315) 888-9998 <span class="arr">→</span></a>
@@ -396,6 +470,27 @@
     <span>Syracuse, New York · Wholesale &amp; Retail</span>
   </div>
 </footer>
+
+<!-- ============================ LIGHTBOX ============================ -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <div class="lightbox__backdrop"></div>
+  <button class="lightbox__close" type="button" aria-label="Close photo viewer">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+  <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Previous photo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Next photo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+  </button>
+  <figure class="lightbox__fig">
+    <img class="lightbox__img" src="" alt="" />
+    <figcaption class="lightbox__meta">
+      <span class="lightbox__cap"></span>
+      <span class="lightbox__counter">01 / 08</span>
+    </figcaption>
+  </figure>
+</div>
 
 <!-- ============================ CHAT ============================ -->
 <button class="chat-launcher" id="chatLauncher" aria-label="Chat with the A4L concierge">
