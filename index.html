@@ -9,8 +9,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+<link rel="preconnect" href="https://basemaps.cartocdn.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..700&family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
 <link rel="stylesheet" href="styles.css" />
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head>
 <body>
 
@@ -340,12 +343,17 @@
       </ul>
       <a href="tel:+13158889998" class="btn btn--primary" style="margin-top:2rem">Call to schedule delivery <span class="arr">→</span></a>
     </div>
-    <div class="delivery__radius reveal d2" aria-hidden="true">
-      <span class="ring r1"></span><span class="ring r2"></span><span class="ring r3"></span>
-      <span class="pin p1"></span><span class="pin p2"></span><span class="pin p3"></span><span class="pin p4"></span>
-      <div class="core">
-        <i class="star"></i>
-        <div class="km">~1 hour<em>delivery radius from Syracuse</em></div>
+    <div class="delivery__map reveal d2" id="delivery-map-wrap">
+      <div class="delivery__map-frame" id="delivery-map" aria-label="Map of the A4L delivery radius — about one hour from the Syracuse showroom"></div>
+      <div class="delivery__map-label">
+        <i class="star" style="--s:11px"></i>
+        <span><b>~1 hour</b><em>delivery radius from Syracuse</em></span>
+      </div>
+      <button type="button" class="delivery__map-toggle" id="delivery-map-toggle" aria-pressed="false">Tap to explore</button>
+      <div class="delivery__map-fallback" id="delivery-map-fallback" hidden>
+        <i class="star" style="--s:18px"></i>
+        <div class="big">~1 hour</div>
+        <div class="lbl">delivery radius from Syracuse</div>
       </div>
     </div>
   </div>

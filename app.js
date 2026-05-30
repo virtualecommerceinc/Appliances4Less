@@ -106,15 +106,9 @@
 
   /* =====================================================================
      LOCATION GALLERIES — editorial lead + thumb rail + lightbox
-     ---------------------------------------------------------------------
-     Each .locgallery is its own scoped instance. The lightbox is a single
-     shared modal that adopts whichever gallery opened it; prev/next inside
-     the lightbox drives that gallery's selectIndex(), which then syncs the
-     lightbox content back via Lightbox.sync().
      ===================================================================== */
   var REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // -- Lightbox (set up first so each gallery instance can reference it).
   var Lightbox = (function () {
     var el = document.getElementById('lightbox');
     if (!el) return { open: function () {}, close: function () {}, sync: function () {}, get openFor() { return null; } };
@@ -146,7 +140,6 @@
       el.setAttribute('aria-hidden', 'false');
       document.body.classList.add('lightbox-open');
       sync();
-      // Defer focus so the transition doesn't steal it mid-frame.
       setTimeout(function () { if (closeBtn) closeBtn.focus(); }, 80);
     }
     function close() {
@@ -162,7 +155,6 @@
     if (prevBtn) prevBtn.addEventListener('click', function () { if (openFor) openFor.select(openFor.idx - 1); });
     if (nextBtn) nextBtn.addEventListener('click', function () { if (openFor) openFor.select(openFor.idx + 1); });
 
-    // Touch swipe inside the lightbox — left to advance, right to go back.
     var lbsx = 0, lbsy = 0, lbtrack = false;
     el.addEventListener('touchstart', function (e) {
       if (!openFor || e.touches.length !== 1) return;
@@ -176,6 +168,7 @@
         if (dx < 0) openFor.select(openFor.idx + 1); else openFor.select(openFor.idx - 1);
       }
     });
+
     document.addEventListener('keydown', function (e) {
       if (!el.classList.contains('open')) return;
       if (e.key === 'Escape') { e.stopPropagation(); close(); }
@@ -185,7 +178,6 @@
     return { open: open, close: close, sync: sync, get openFor() { return openFor; } };
   })();
 
-  // -- Per-gallery instances
   [].slice.call(document.querySelectorAll('.locgallery')).forEach(function (root) {
     var leadA = root.querySelector('.locgallery__lead--a');
     var leadB = root.querySelector('.locgallery__lead--b');
@@ -208,16 +200,14 @@
       };
     });
     var idx = 0;
-    var visibleLayer = 'a'; // which of the two stacked <img> layers is currently shown
+    var visibleLayer = 'a';
     if (counterTot) counterTot.textContent = String(photos.length).length < 2 ? '0' + photos.length : String(photos.length);
 
     function pad(n) { return String(n).length < 2 ? '0' + n : String(n); }
     function mod(n, m) { return ((n % m) + m) % m; }
-
     function preload(i) {
       if (i < 0 || i >= photos.length) return;
-      var im = new Image();
-      im.src = photos[i].src;
+      var im = new Image(); im.src = photos[i].src;
     }
 
     function select(target) {
@@ -230,21 +220,16 @@
       var incoming = visibleLayer === 'a' ? leadB : leadA;
       var outgoing = visibleLayer === 'a' ? leadA : leadB;
 
-      // Preload before swapping so the crossfade lands on a decoded image.
       var pre = new Image();
       pre.onload = function () {
         incoming.src = p.src;
         incoming.alt = p.alt;
-        // Force a reflow so the opacity transition fires (otherwise setting
-        // .is-visible on a freshly src'd image can batch the paint).
-        // eslint-disable-next-line no-unused-expressions
         incoming.offsetWidth;
         incoming.classList.add('is-visible');
         outgoing.classList.remove('is-visible');
         visibleLayer = visibleLayer === 'a' ? 'b' : 'a';
       };
       pre.onerror = function () {
-        // Fallback: still swap; will show broken-image icon rather than freeze.
         incoming.src = p.src;
         incoming.alt = p.alt;
         incoming.classList.add('is-visible');
@@ -266,18 +251,16 @@
       preload(mod(i + 1, photos.length));
       preload(mod(i - 1, photos.length));
 
-      // Keep the active thumb in view in the horizontal rail.
       var active = thumbs[i];
       if (active && rail) {
         var rRect = rail.getBoundingClientRect();
         var aRect = active.getBoundingClientRect();
         if (aRect.left < rRect.left + 8 || aRect.right > rRect.right - 8) {
-          // Custom horizontal scroll so we don't also scroll the page.
-          var target = active.offsetLeft - (rail.clientWidth - active.clientWidth) / 2;
+          var t = active.offsetLeft - (rail.clientWidth - active.clientWidth) / 2;
           if (typeof rail.scrollTo === 'function') {
-            rail.scrollTo({ left: target, behavior: REDUCED_MOTION ? 'auto' : 'smooth' });
+            rail.scrollTo({ left: t, behavior: REDUCED_MOTION ? 'auto' : 'smooth' });
           } else {
-            rail.scrollLeft = target;
+            rail.scrollLeft = t;
           }
         }
       }
@@ -285,40 +268,24 @@
       if (Lightbox.openFor === inst) Lightbox.sync();
     }
 
-    // Public instance handle
-    var inst = {
-      root: root,
-      photos: photos,
-      get idx() { return idx; },
-      select: select
-    };
+    var inst = { root: root, photos: photos, get idx() { return idx; }, select: select };
 
-    // Wire thumbs
-    thumbs.forEach(function (t, j) {
-      t.addEventListener('click', function () { select(j); });
-    });
-
-    // Wire arrows
+    thumbs.forEach(function (t, j) { t.addEventListener('click', function () { select(j); }); });
     if (prevBtn) prevBtn.addEventListener('click', function (e) { e.stopPropagation(); select(idx - 1); });
     if (nextBtn) nextBtn.addEventListener('click', function (e) { e.stopPropagation(); select(idx + 1); });
 
-    // Keyboard: when focus is anywhere in the gallery, ← / → cycle.
     root.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowLeft') { e.preventDefault(); select(idx - 1); }
       else if (e.key === 'ArrowRight') { e.preventDefault(); select(idx + 1); }
     });
 
-    // Touch swipe on the stage
     var sx = 0, sy = 0, tracking = false;
     stage.addEventListener('touchstart', function (e) {
       if (e.touches.length !== 1) return;
-      sx = e.touches[0].clientX;
-      sy = e.touches[0].clientY;
-      tracking = true;
+      sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
     }, { passive: true });
     stage.addEventListener('touchend', function (e) {
-      if (!tracking) return;
-      tracking = false;
+      if (!tracking) return; tracking = false;
       var t = e.changedTouches[0];
       var dx = t.clientX - sx, dy = t.clientY - sy;
       if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.4) {
@@ -326,21 +293,213 @@
       }
     });
 
-    // Open lightbox from the stage or the expand button.
     function openLightbox(e) {
-      // Don't open the lightbox when the user clicks an arrow that sits on top of the stage.
       if (e && e.target && e.target.closest && e.target.closest('.locgallery__nav,.locgallery__expand')) return;
       Lightbox.open(inst);
     }
     stage.addEventListener('click', openLightbox);
     if (expandBtn) expandBtn.addEventListener('click', function (e) { e.stopPropagation(); Lightbox.open(inst); });
 
-    // Warm cache with the first neighbors so initial nav is instant.
-    if (photos.length > 1) {
-      preload(1);
-      preload(photos.length - 1);
-    }
+    if (photos.length > 1) { preload(1); preload(photos.length - 1); }
   });
+
+  /* =====================================================================
+     DELIVERY RADIUS MAP — Leaflet + CartoDB Dark Matter
+     ---------------------------------------------------------------------
+     A real geographic map of central NY with a gold ~55-mile (88.5 km)
+     radius circle drawn around the Erie Blvd showroom. Crimson star marks
+     the showroom; smaller gold stars mark common lake-camp / town landmarks
+     inside the radius. Default state: pure graphic (no zoom, no drag).
+     On touch viewports a "Tap to explore" chip unlocks interaction.
+     If the Leaflet CDN fails, an inline fallback panel still says
+     "~1 hour delivery radius from Syracuse" so the section never blanks.
+     ===================================================================== */
+  function whenLeafletReady(cb, opts) {
+    opts = opts || {};
+    var deadline = Date.now() + (opts.timeoutMs || 5000);
+    (function loop() {
+      if (typeof window.L !== 'undefined') { cb(true); return; }
+      if (Date.now() > deadline) { cb(false); return; }
+      setTimeout(loop, 80);
+    })();
+  }
+
+  function initDeliveryMap() {
+    var wrap = document.getElementById('delivery-map-wrap');
+    var mapEl = document.getElementById('delivery-map');
+    var fallback = document.getElementById('delivery-map-fallback');
+    var toggle = document.getElementById('delivery-map-toggle');
+    if (!mapEl || !wrap) return;
+
+    whenLeafletReady(function (ok) {
+      if (!ok || typeof window.L === 'undefined') {
+        wrap.classList.add('is-fallback');
+        if (fallback) fallback.hidden = false;
+        return;
+      }
+
+      var L = window.L;
+      // 2760 Erie Blvd E, Syracuse NY 13224 — approximate lat/lon (Eastwood).
+      var SHOWROOM = [43.0517, -76.1213];
+      // ~55 mi = ~88.5 km — matches the in-copy "about an hour out from Syracuse" claim.
+      var RADIUS_M = 88500;
+
+      var map = L.map(mapEl, {
+        center: SHOWROOM,
+        zoom: 9,
+        zoomControl: false,
+        scrollWheelZoom: false,
+        doubleClickZoom: false,
+        dragging: false,
+        boxZoom: false,
+        keyboard: false,
+        touchZoom: false,
+        tap: false,
+        attributionControl: false,
+        zoomSnap: 0.5,
+        zoomDelta: 0.5
+      });
+
+      L.control.attribution({ prefix: false, position: 'bottomright' })
+        .addAttribution('&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OSM</a> &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>')
+        .addTo(map);
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        subdomains: 'abcd',
+        maxZoom: 19,
+        detectRetina: true,
+        crossOrigin: true
+      }).addTo(map);
+
+      // Gold radius circle
+      var ring = L.circle(SHOWROOM, {
+        radius: RADIUS_M,
+        color: '#e2c474',
+        weight: 2.2,
+        opacity: 0.9,
+        fillColor: '#c4a052',
+        fillOpacity: 0.08,
+        interactive: false
+      }).addTo(map);
+
+      // Fit the visible area to the circle bounds (so users see the whole radius).
+      try {
+        map.fitBounds(ring.getBounds(), { padding: [12, 12], animate: false });
+      } catch (e) {
+        map.setView(SHOWROOM, 8);
+      }
+
+      // Brand-styled star markers. SVG path is a 5-point star.
+      function starSvg(size, fill, stroke, glow) {
+        return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="' + size + '" height="' + size + '"' +
+               ' style="overflow:visible">' +
+               (glow ? '<defs><filter id="g' + size + '" x="-50%" y="-50%" width="200%" height="200%">' +
+                 '<feGaussianBlur stdDeviation="1.4"/></filter></defs>' : '') +
+               '<path d="M12 2 14.5 9 22 9 16 13.5 18 21 12 16.5 6 21 8 13.5 2 9 9.5 9z"' +
+               ' fill="' + fill + '" stroke="' + stroke + '" stroke-width="1" stroke-linejoin="round"' +
+               (glow ? ' filter="url(#g' + size + ')"' : '') + '/></svg>';
+      }
+
+      var showroomIcon = L.divIcon({
+        className: 'delivery-marker delivery-marker--showroom',
+        html: starSvg(30, '#c4283c', '#f7f2e8', false),
+        iconSize: [30, 30],
+        iconAnchor: [15, 15]
+      });
+      L.marker(SHOWROOM, { icon: showroomIcon, title: 'A4L Showroom — 2760 Erie Blvd E', interactive: false, keyboard: false }).addTo(map);
+
+      var landmarkIcon = L.divIcon({
+        className: 'delivery-marker delivery-marker--landmark',
+        html: starSvg(16, '#c4a052', '#e2c474', false),
+        iconSize: [16, 16],
+        iconAnchor: [8, 8]
+      });
+      var landmarks = [
+        { coords: [43.1854, -75.9069], name: 'Oneida Lake — south shore camps' },
+        { coords: [42.9301, -76.4291], name: 'Skaneateles' },
+        { coords: [42.9290, -75.8554], name: 'Cazenovia' },
+        { coords: [42.6010, -76.1804], name: 'Cortland' }
+      ];
+      landmarks.forEach(function (lm) {
+        L.marker(lm.coords, { icon: landmarkIcon, title: lm.name, interactive: false, keyboard: false }).addTo(map);
+      });
+
+      // Mobile "Tap to explore" toggle: unlocks drag/zoom and drops a zoom control.
+      var unlocked = false;
+      var zoomCtrl = null;
+      function unlock() {
+        map.dragging.enable();
+        map.scrollWheelZoom.enable();
+        map.doubleClickZoom.enable();
+        map.touchZoom.enable();
+        map.boxZoom.enable();
+        map.keyboard.enable();
+        if (!zoomCtrl) {
+          zoomCtrl = L.control.zoom({ position: 'topright' });
+          zoomCtrl.addTo(map);
+        }
+        if (toggle) {
+          toggle.classList.add('is-on');
+          toggle.setAttribute('aria-pressed', 'true');
+          toggle.textContent = 'Lock view';
+        }
+        unlocked = true;
+      }
+      function lock() {
+        map.dragging.disable();
+        map.scrollWheelZoom.disable();
+        map.doubleClickZoom.disable();
+        map.touchZoom.disable();
+        map.boxZoom.disable();
+        map.keyboard.disable();
+        if (zoomCtrl) { zoomCtrl.remove(); zoomCtrl = null; }
+        if (toggle) {
+          toggle.classList.remove('is-on');
+          toggle.setAttribute('aria-pressed', 'false');
+          toggle.textContent = 'Tap to explore';
+        }
+        try { map.fitBounds(ring.getBounds(), { padding: [12, 12], animate: true }); } catch (e) {}
+        unlocked = false;
+      }
+      if (toggle) {
+        toggle.addEventListener('click', function (e) {
+          e.preventDefault();
+          if (unlocked) lock(); else unlock();
+        });
+      }
+
+      // Recompute the fit when the section first comes into view AND on resize —
+      // Leaflet measures the container at init, and a hidden / not-yet-laid-out
+      // container yields a degenerate viewport. invalidateSize() repairs it.
+      function fix() {
+        map.invalidateSize(false);
+        if (!unlocked) {
+          try { map.fitBounds(ring.getBounds(), { padding: [12, 12], animate: false }); } catch (e) {}
+        }
+      }
+      window.addEventListener('load', fix);
+      window.addEventListener('resize', function () {
+        if (window._a4lMapResizeT) clearTimeout(window._a4lMapResizeT);
+        window._a4lMapResizeT = setTimeout(fix, 180);
+      });
+      if ('IntersectionObserver' in window) {
+        var mio = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) { fix(); mio.unobserve(en.target); }
+          });
+        }, { threshold: 0.05 });
+        mio.observe(wrap);
+      }
+      // One more pass shortly after init to catch any late layout shift.
+      setTimeout(fix, 350);
+    }, { timeoutMs: 5500 });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDeliveryMap);
+  } else {
+    initDeliveryMap();
+  }
 
   /* =====================================================================
      A4L CONCIERGE CHATBOT
@@ -504,9 +663,6 @@
   if (closeBtn) closeBtn.addEventListener('click', closeChat);
   if (form) form.addEventListener('submit', function (e) { e.preventDefault(); send(input.value); });
   document.addEventListener('keydown', function (e) {
-    // Don't close the chat if the lightbox is open — its Esc handler runs first
-    // in capture phase and stops propagation, so this only fires when the
-    // lightbox is closed.
     if (e.key === 'Escape' && panel.classList.contains('open')) closeChat();
   });
 
