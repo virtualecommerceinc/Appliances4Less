@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>document.documentElement.className += ' js';</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CNY Appliances 4 Less — Premium appliances. Honest prices. Guaranteed.</title>
+<meta name="description" content="CNY Appliances 4 Less — new and scratch &amp; dent appliances at honest prices in Syracuse, NY. Refrigerators, ranges, washers, dryers, dishwashers & more. Delivery and haul-away available. Call or text (315) 888-9998." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..700&family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ============================ NAV ============================ -->
+<header class="nav" id="nav">
+  <a class="nav__brand" href="#top" aria-label="CNY Appliances 4 Less home">
+    <img src="assets/logo-mark.png" alt="A4L — Appliances 4 Less" />
+    <span class="nav__brand-txt"><b>Appliances&nbsp;4&nbsp;Less</b><span>CNY · Syracuse, NY</span></span>
+  </a>
+  <nav class="nav__links" aria-label="Primary">
+    <a href="#showroom">Showroom</a>
+    <a href="#inventory">Inventory</a>
+    <a href="#why">Why A4L</a>
+    <a href="#delivery">Delivery</a>
+    <a href="#visit">Visit Us</a>
+  </nav>
+  <a class="nav__cta" href="tel:+13158889998">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    Call (315) 888-9998
+  </a>
+  <button class="nav__burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</header>
+
+<a id="top"></a>
+
+<!-- ============================ HERO ============================ -->
+<section class="hero">
+  <div class="hero__stars-bg flag-weave"></div>
+  <div class="hero__glow"></div>
+  <div class="hero__inner">
+    <div class="hero__copy">
+      <div class="hero__stars" aria-hidden="true">
+        <i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i>
+      </div>
+      <h1 class="reveal">
+        <span class="ln">Premium appliances.</span>
+        <span class="ln"><em>Honest</em> prices.</span>
+        <span class="ln"><span class="crimson">Guaranteed.</span></span>
+      </h1>
+      <p class="hero__sub reveal d1">New and scratch &amp; dent refrigerators, ranges, washers, dryers and more — <b>brand-name quality at a serious discount.</b> Family-run in Syracuse, wholesale &amp; retail.</p>
+      <div class="hero__actions reveal d2">
+        <a href="#inventory" class="btn btn--primary">Browse the Showroom <span class="arr">→</span></a>
+        <a href="#delivery" class="btn btn--ghost">Delivery &amp; Haul-Away</a>
+      </div>
+      <div class="hero__guarantee reveal d3">
+        <span class="line"></span>
+        <span>“Guaranteed to save you money on appliances.”</span>
+      </div>
+    </div>
+
+    <div class="hero__media reveal d2">
+      <div class="hero__frame" data-parallax="0.12">
+        <image-slot id="hero-fridge" shape="rect" fit="cover"
+          placeholder="Drop hero photo — French-door stainless fridge with water + ice dispenser, cinematic lighting"></image-slot>
+      </div>
+      <div class="hero__badge">
+        <div class="big">Save&nbsp;40%+</div>
+        <div class="lbl">vs. big-box retail</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero__scroll" aria-hidden="true"><span>Scroll</span><span class="dot"></span></div>
+</section>
+
+<!-- ========================= TRUST STRIP ========================= -->
+<section class="trust">
+  <div class="trust__row">
+    <span class="trust__item"><i class="star"></i><b>4.6★</b> Google · 45 reviews</span>
+    <span class="trust__sep"></span>
+    <span class="trust__item"><i class="star"></i><b>5.0★</b> Yelp</span>
+    <span class="trust__sep"></span>
+    <span class="trust__item"><b>Family-owned</b> &amp; local</span>
+    <span class="trust__sep"></span>
+    <span class="trust__item"><b>Wholesale</b> &amp; Retail</span>
+    <span class="trust__sep"></span>
+    <span class="trust__item">Syracuse, <b>NY</b></span>
+  </div>
+  <div class="brands" aria-label="Brands we carry">
+    <div class="brands__track">
+      <span>Whirlpool</span><span>GE</span><span>Samsung</span><span>LG</span><span>Maytag</span><span>Frigidaire</span><span>KitchenAid</span><span>Amana</span><span>Speed Queen</span>
+      <span>Whirlpool</span><span>GE</span><span>Samsung</span><span>LG</span><span>Maytag</span><span>Frigidaire</span><span>KitchenAid</span><span>Amana</span><span>Speed Queen</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SAVINGS PROMISE / WHY ===================== -->
+<section class="section section--ivory" id="why">
+  <div class="wrap">
+    <div class="savings__head reveal">
+      <span class="eyebrow"><i class="star"></i> The Savings Promise</span>
+      <h2>The same brand-new appliance. <em>Hundreds less.</em> No catch — just a smarter way to buy.</h2>
+    </div>
+    <div class="savings__grid">
+      <article class="svc svc--a reveal">
+        <span class="svc__num">01</span>
+        <span class="svc__tag"><i class="star" style="--s:11px"></i> Brand New</span>
+        <h3>Factory-fresh, fully warrantied</h3>
+        <p>Current-model refrigerators, ranges, laundry and more — sealed, untouched, and frequently carrying the full manufacturer's warranty. The big-box selection, without the big-box markup.</p>
+        <ul class="savings__points">
+          <li><i class="star"></i> Latest models from the brands you trust</li>
+          <li><i class="star"></i> Manufacturer warranty on many units</li>
+          <li><i class="star"></i> Wholesale pricing, retail service</li>
+        </ul>
+      </article>
+      <article class="svc svc--b reveal d1">
+        <span class="svc__num">02</span>
+        <span class="svc__tag"><i class="star" style="--s:11px"></i> Scratch &amp; Dent</span>
+        <h3>Never used. One small blemish. A big discount.</h3>
+        <p>A minor cosmetic mark — usually a small dent or scratch on a side or back panel you'll rarely see once it's installed. Mechanically perfect, never used, and priced to genuinely save you money.</p>
+        <ul class="savings__points">
+          <li><i class="star"></i> Open-box, never installed, fully functional</li>
+          <li><i class="star"></i> Blemishes almost always hidden once in place</li>
+          <li><i class="star"></i> Often still under factory warranty</li>
+        </ul>
+      </article>
+    </div>
+    <div class="savings__strip reveal d2">
+      <div class="savings__stat"><div class="n">40<em>%+</em></div><div class="l">Typical savings vs. retail</div></div>
+      <div class="savings__stat"><div class="n">2</div><div class="l">Syracuse locations</div></div>
+      <div class="savings__stat"><div class="n">~1<em>hr</em></div><div class="l">Delivery radius — even the lake</div></div>
+      <div class="savings__stat"><div class="n">4.6<em>★</em></div><div class="l">Google, across 45 reviews</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== SHOWROOM / INVENTORY ====================== -->
+<section class="section section--paper" id="inventory">
+  <a id="showroom"></a>
+  <div class="wrap">
+    <div class="gallery__head">
+      <div class="reveal">
+        <span class="eyebrow"><i class="star"></i> On The Floor This Week</span>
+        <h2>The Showroom</h2>
+      </div>
+      <p class="reveal d1">A rotating, hand-picked selection of new and scratch &amp; dent units. Stock moves fast — see something you love? <strong>Ask our concierge or call to confirm it's still here.</strong></p>
+    </div>
+
+    <div class="grid-prod">
+      <!-- Feature -->
+      <article class="prod c8 feature reveal">
+        <div class="prod__media">
+          <span class="prod__deal">Scratch &amp; Dent</span>
+          <image-slot id="prod-1" shape="rect" placeholder="French-door fridge with water + ice dispenser"></image-slot>
+        </div>
+        <div class="prod__body">
+          <span class="prod__cat">Refrigerator · French Door</span>
+          <h3 class="prod__name">Counter-Depth French Door · Water &amp; Ice</h3>
+          <p class="prod__spec">26 cu. ft. · stainless · external water + ice dispenser · dual ice maker · minor blemish on left side panel.</p>
+          <div class="prod__foot">
+            <div class="prod__price"><span class="prod__was">$2,899</span><span class="prod__now">$1,749</span></div>
+            <button class="prod__ask" data-ask="Is the French-door fridge with water and ice still available?">Ask about this <span class="arr">→</span></button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Black stainless range, tall -->
+      <article class="prod c4 tall reveal d1">
+        <div class="prod__media">
+          <span class="prod__deal new">Brand New</span>
+          <image-slot id="prod-2" shape="rect" placeholder="Black stainless gas range / stove"></image-slot>
+        </div>
+        <div class="prod__body">
+          <span class="prod__cat">Range · Gas</span>
+          <h3 class="prod__name">Black Stainless 5-Burner Gas Range</h3>
+          <p class="prod__spec">Convection oven · cast-iron grates · air-fry ready. Factory warranty.</p>
+          <div class="prod__foot">
+            <div class="prod__price"><span class="prod__was">$1,499</span><span class="prod__now">$1,149</span></div>
+            <button class="prod__ask" data-ask="Do you have the black stainless gas range in stock?">Ask <span class="arr">→</span></button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Washer/dryer set -->
+      <article class="prod c4 reveal">
+        <div class="prod__media">
+          <span class="prod__deal">Scratch &amp; Dent</span>
+          <image-slot id="prod-3" shape="rect" placeholder="Front-load washer + dryer set, stainless"></image-slot>
+        </div>
+        <div class="prod__body">
+          <span class="prod__cat">Laundry · Set</span>
+          <h3 class="prod__name">Front-Load Washer &amp; Dryer Pair</h3>
+          <p class="prod__spec">Large capacity · steam · stackable. Sold as a matched set.</p>
+          <div class="prod__foot">
+            <div class="prod__price"><span class="prod__was">$1,899</span><span class="prod__now">$1,199</span></div>
+            <button class="prod__ask" data-ask="Is the front-load washer and dryer set still on the floor?">Ask <span class="arr">→</span></button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Side-by-side -->
+      <article class="prod c4 reveal d1">
+        <div class="prod__media">
+          <span class="prod__deal">Scratch &amp; Dent</span>
+          <image-slot id="prod-4" shape="rect" placeholder="Side-by-side stainless refrigerator"></image-slot>
+        </div>
+        <div class="prod__body">
+          <span class="prod__cat">Refrigerator · Side-by-Side</span>
+          <h3 class="prod__name">25 cu. ft. Side-by-Side Stainless</h3>
+          <p class="prod__spec">In-door ice &amp; water · spill-proof shelves · small rear dent.</p>
+          <div class="prod__foot">
+            <div class="prod__price"><span class="prod__was">$1,699</span><span class="prod__now">$999</span></div>
+            <button class="prod__ask" data-ask="Is the side-by-side stainless fridge available?">Ask <span class="arr">→</span></button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Dishwasher -->
+      <article class="prod c4 reveal d2">
+        <div class="prod__media">
+          <span class="prod__deal new">Brand New</span>
+          <image-slot id="prod-5" shape="rect" placeholder="Stainless tub dishwasher"></image-slot>
+        </div>
+        <div class="prod__body">
+          <span class="prod__cat">Dishwasher</span>
+          <h3 class="prod__name">Top-Control Stainless Dishwasher</h3>
+          <p class="prod__spec">Third rack · 45 dBA quiet wash · stainless tub. Factory warranty.</p>
+          <div class="prod__foot">
+            <div class="prod__price"><span class="prod__was">$849</span><span class="prod__now">$599</span></div>
+            <button class="prod__ask" data-ask="Do you have the stainless dishwasher in stock?">Ask <span class="arr">→</span></button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="gallery__cta reveal">
+      <button class="btn btn--dark" data-ask="What's on the floor today? I'm looking for the best deals.">See What's On The Floor Today <span class="arr">→</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== DELIVERY & HAUL-AWAY ====================== -->
+<section class="section section--navy delivery" id="delivery">
+  <div class="hero__stars-bg flag-weave" style="opacity:.25"></div>
+  <div class="wrap">
+    <div class="delivery__copy reveal">
+      <span class="eyebrow eyebrow--light"><i class="star"></i> Delivery &amp; Haul-Away</span>
+      <h2>We'll bring it home — <em>even to the camp on the lake.</em></h2>
+      <p>Professional delivery and old-appliance haul-away available for a small additional fee. Same-day delivery is often available, and we travel about an hour out from Syracuse — lakeside camps included.</p>
+      <ul class="delivery__list">
+        <li>
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span>
+          <div><b>Professional delivery</b><span>Careful in-home placement by people who do this every day.</span></div>
+        </li>
+        <li>
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span>
+          <div><b>Old-appliance haul-away</b><span>We'll take the old unit off your hands when we drop off the new one.</span></div>
+        </li>
+        <li>
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+          <div><b>Same-day, often available</b><span>Need it fast? Call or text and we'll see what we can do today.</span></div>
+        </li>
+      </ul>
+      <a href="tel:+13158889998" class="btn btn--primary" style="margin-top:2rem">Call to schedule delivery <span class="arr">→</span></a>
+    </div>
+    <div class="delivery__radius reveal d2" aria-hidden="true">
+      <span class="ring r1"></span><span class="ring r2"></span><span class="ring r3"></span>
+      <span class="pin p1"></span><span class="pin p2"></span><span class="pin p3"></span><span class="pin p4"></span>
+      <div class="core">
+        <i class="star"></i>
+        <div class="km">~1 hour<em>delivery radius from Syracuse</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ REVIEWS ============================ -->
+<section class="section section--ivory" id="reviews">
+  <div class="wrap">
+    <div class="reviews__head reveal">
+      <span class="eyebrow"><i class="star"></i> 4.6★ Google · 5.0★ Yelp</span>
+      <h2>Neighbors who saved — and meant it.</h2>
+    </div>
+    <div class="reviews__lead">
+      <article class="review review--big reveal">
+        <div class="review__stars"><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i></div>
+        <q>Saved nearly a thousand dollars on a fridge that looks brand new. They delivered same day and hauled off the old one. No pressure, no games — just an honest local family. We'll never buy big-box again.</q>
+        <div class="review__by"><span class="av">DM</span><div><b>Danielle M.</b><span>Syracuse, NY · Google</span></div></div>
+      </article>
+      <article class="review reveal d1">
+        <div class="review__stars"><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i></div>
+        <q>Drove our new washer all the way out to the lake camp. Couldn't believe the price or the service.</q>
+        <div class="review__by"><span class="av">RT</span><div><b>Rob T.</b><span>Oneida Lake · Yelp</span></div></div>
+      </article>
+    </div>
+    <div class="reviews__row">
+      <article class="review reveal">
+        <div class="review__stars"><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i></div>
+        <q>The “dent” was on the back where nobody will ever see it. Hundreds off a perfect range.</q>
+        <div class="review__by"><span class="av">KP</span><div><b>Karen P.</b><span>DeWitt, NY</span></div></div>
+      </article>
+      <article class="review reveal d1">
+        <div class="review__stars"><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i></div>
+        <q>Texted them a question at night and got a real, helpful answer. Bought a dishwasher the next day.</q>
+        <div class="review__by"><span class="av">JL</span><div><b>Jordan L.</b><span>East Syracuse, NY</span></div></div>
+      </article>
+      <article class="review reveal d2">
+        <div class="review__stars"><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i></div>
+        <q>Family-run and it shows. They treat you like a neighbor, not a number. Highly recommend.</q>
+        <div class="review__by"><span class="av">AV</span><div><b>Anthony V.</b><span>Liverpool, NY</span></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ VISIT US ============================ -->
+<section class="section section--paper visit" id="visit">
+  <div class="wrap">
+    <div class="visit__info">
+      <div class="reveal">
+        <span class="eyebrow"><i class="star"></i> Come See Us</span>
+        <h2>Visit the showroom.</h2>
+      </div>
+      <div class="hours-card flag-weave reveal d1">
+        <h3><i class="star" style="--s:12px"></i> Store Hours</h3>
+        <div class="row" data-day="mon-sat"><span class="d">Monday – Saturday</span><span class="t">10am – 7pm</span></div>
+        <div class="row" data-day="sun"><span class="d">Sunday</span><span class="t">10am – 6pm</span></div>
+      </div>
+      <div class="addr-grid reveal d1">
+        <div class="addr">
+          <div class="k"><i class="star" style="--s:10px"></i> Showroom · Retail</div>
+          <div class="a">2760 Erie Blvd E<br/>Syracuse, NY 13224</div>
+        </div>
+        <div class="addr">
+          <div class="k"><i class="star" style="--s:10px"></i> Warehouse · Wholesale</div>
+          <div class="a">835 Canal St<br/>Syracuse, NY 13210</div>
+        </div>
+      </div>
+      <div class="contact-row reveal d2">
+        <a class="contact-chip" href="tel:+13158889998">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          (315) 888-9998
+        </a>
+        <a class="contact-chip" href="sms:+13158889998">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Text Us
+        </a>
+        <a class="contact-chip" href="mailto:cnyappliances4less@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+          Email
+        </a>
+      </div>
+    </div>
+    <div class="visit__map reveal d2">
+      <iframe title="Map to CNY Appliances 4 Less, 2760 Erie Blvd E, Syracuse NY" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=2760+Erie+Blvd+E,+Syracuse,+NY+13224&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="footer">
+  <div class="footer__top">
+    <div class="footer__brand">
+      <span class="plaque"><img src="assets/logo-trim.png" alt="CNY Appliances 4 Less — Quality Global" /></span>
+      <p>Family-run, locally owned. New and scratch &amp; dent appliances — wholesale and retail — at honest prices for greater Syracuse and Central New York.</p>
+      <p class="tag">“Guaranteed to save you money on appliances.”</p>
+    </div>
+    <div class="footer__col">
+      <h4>Explore</h4>
+      <a href="#inventory">Showroom</a>
+      <a href="#why">The Savings Promise</a>
+      <a href="#delivery">Delivery &amp; Haul-Away</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#visit">Visit Us</a>
+    </div>
+    <div class="footer__col">
+      <h4>Visit</h4>
+      <p>Showroom<br/>2760 Erie Blvd E<br/>Syracuse, NY 13224</p>
+      <p>Warehouse<br/>835 Canal St<br/>Syracuse, NY 13210</p>
+    </div>
+    <div class="footer__col">
+      <h4>Contact</h4>
+      <a href="tel:+13158889998">(315) 888-9998</a>
+      <a href="sms:+13158889998">Text us anytime</a>
+      <a href="mailto:cnyappliances4less@gmail.com">cnyappliances4less@gmail.com</a>
+      <p style="margin-top:.5rem">Mon–Sat 10am–7pm<br/>Sun 10am–6pm</p>
+      <a href="https://www.facebook.com/p/CNY-Appliances-4-Less-100091370941707" target="_blank" rel="noopener">Facebook ↗</a>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© <span id="year"></span> CNY Appliances 4 Less · Quality Global. All rights reserved.</span>
+    <span>Syracuse, New York · Wholesale &amp; Retail</span>
+  </div>
+</footer>
+
+<!-- ============================ CHAT ============================ -->
+<button class="chat-launcher" id="chatLauncher" aria-label="Chat with the A4L concierge">
+  <span class="chat-launcher__bubble">Questions? Ask A4L →</span>
+  <span class="chat-launcher__btn">
+    <span class="chat-launcher__pulse"></span>
+    <img class="chat-launcher__mascot" src="assets/mascot.png" alt="A4L mascot — chat with us" width="409" height="512" decoding="async" />
+  </span>
+</button>
+
+<section class="chat-panel" id="chatPanel" aria-live="polite" aria-label="A4L concierge chat">
+  <header class="chat-head">
+    <span class="chat-head__avatar"><img class="chat-head__mascot" src="assets/mascot.png" alt="" /></span>
+    <div class="chat-head__t">
+      <b>A4L Concierge</b>
+      <span>Online · usually replies instantly</span>
+    </div>
+    <button class="chat-close" id="chatClose" aria-label="Close chat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </header>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-chips" id="chatChips"></div>
+  <form class="chat-input" id="chatForm">
+    <input id="chatText" type="text" autocomplete="off" placeholder="Ask about delivery, hours, deals…" aria-label="Type your message" />
+    <button type="submit" aria-label="Send">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg>
+    </button>
+  </form>
+</section>
+
+<script src="assets/image-slot.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
