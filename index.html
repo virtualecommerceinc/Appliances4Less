@@ -22,7 +22,7 @@
   </a>
   <nav class="nav__links" aria-label="Primary">
     <a href="#showroom">Showroom</a>
-    <a href="#inventory">Inventory</a>
+    <a href="#warehouse">Warehouse</a>
     <a href="#why">Why A4L</a>
     <a href="#delivery">Delivery</a>
     <a href="#visit">Visit Us</a>
@@ -52,7 +52,7 @@
       </h1>
       <p class="hero__sub reveal d1">New and scratch &amp; dent refrigerators, ranges, washers, dryers and more — <b>brand-name quality at a serious discount.</b> Family-run in Syracuse, wholesale &amp; retail.</p>
       <div class="hero__actions reveal d2">
-        <a href="#inventory" class="btn btn--primary">Browse the Showroom <span class="arr">→</span></a>
+        <a href="#showroom" class="btn btn--primary">Browse the Showroom <span class="arr">→</span></a>
         <a href="#delivery" class="btn btn--ghost">Delivery &amp; Haul-Away</a>
       </div>
       <div class="hero__guarantee reveal d3">
@@ -137,117 +137,107 @@
   </div>
 </section>
 
-<!-- ====================== SHOWROOM / INVENTORY ====================== -->
-<section class="section section--paper" id="inventory">
-  <a id="showroom"></a>
+<!-- ======================= SHOWROOM (Retail) ======================= -->
+<section class="section section--paper locsec" id="showroom">
   <div class="wrap">
     <div class="gallery__head">
       <div class="reveal">
-        <span class="eyebrow"><i class="star"></i> On The Floor This Week</span>
-        <h2>The Showroom</h2>
+        <span class="eyebrow"><i class="star"></i> On The Showroom Floor</span>
+        <h2>Walk in. See it. Take it home today.</h2>
       </div>
-      <p class="reveal d1">A rotating, hand-picked selection of new and scratch &amp; dent units. Stock moves fast — see something you love? <strong>Ask our concierge or call to confirm it's still here.</strong></p>
+      <p class="reveal d1">The retail showroom at 2760 Erie Blvd E is where most of our neighbors meet their next appliance. New and scratch &amp; dent — refrigerators, ranges, washers, dryers, dishwashers — all on the floor, all priced to save you money. Stock rotates fast; if you see something you love online, call or text <a href="tel:+13158889998"><strong>(315)&nbsp;888-9998</strong></a> to confirm it's still here.</p>
     </div>
 
-    <div class="grid-prod">
-      <!-- Feature -->
-      <article class="prod c8 feature reveal">
-        <div class="prod__media">
-          <span class="prod__deal">Scratch &amp; Dent</span>
-          <image-slot id="prod-1" shape="rect"
-            src="https://images.unsplash.com/photo-1588854337115-1c67d9247e4d?w=1200&amp;q=80&amp;auto=format&amp;fit=crop"
-            placeholder="French-door fridge with water + ice dispenser"></image-slot>
-        </div>
-        <div class="prod__body">
-          <span class="prod__cat">Refrigerator · French Door</span>
-          <h3 class="prod__name">Counter-Depth French Door · Water &amp; Ice</h3>
-          <p class="prod__spec">26 cu. ft. · stainless · external water + ice dispenser · dual ice maker · minor blemish on left side panel.</p>
-          <div class="prod__foot">
-            <div class="prod__price"><span class="prod__was">$2,899</span><span class="prod__now">$1,749</span></div>
-            <button class="prod__ask" data-ask="Is the French-door fridge with water and ice still available?">Ask about this <span class="arr">→</span></button>
-          </div>
-        </div>
-      </article>
-
-      <!-- Black stainless range, tall -->
-      <article class="prod c4 tall reveal d1">
-        <div class="prod__media">
-          <span class="prod__deal new">Brand New</span>
-          <image-slot id="prod-2" shape="rect"
-            src="https://images.unsplash.com/photo-1623114112815-74a4b9fe505d?w=1000&amp;q=80&amp;auto=format&amp;fit=crop"
-            placeholder="Black stainless gas range / stove"></image-slot>
-        </div>
-        <div class="prod__body">
-          <span class="prod__cat">Range · Gas</span>
-          <h3 class="prod__name">Black Stainless 5-Burner Gas Range</h3>
-          <p class="prod__spec">Convection oven · cast-iron grates · air-fry ready. Factory warranty.</p>
-          <div class="prod__foot">
-            <div class="prod__price"><span class="prod__was">$1,499</span><span class="prod__now">$1,149</span></div>
-            <button class="prod__ask" data-ask="Do you have the black stainless gas range in stock?">Ask <span class="arr">→</span></button>
-          </div>
-        </div>
-      </article>
-
-      <!-- Washer/dryer set -->
-      <article class="prod c4 reveal">
-        <div class="prod__media">
-          <span class="prod__deal">Scratch &amp; Dent</span>
-          <image-slot id="prod-3" shape="rect"
-            src="https://images.unsplash.com/photo-1646592474094-342fbc28736c?w=1000&amp;q=80&amp;auto=format&amp;fit=crop"
-            placeholder="Front-load washer + dryer set, stainless"></image-slot>
-        </div>
-        <div class="prod__body">
-          <span class="prod__cat">Laundry · Set</span>
-          <h3 class="prod__name">Front-Load Washer &amp; Dryer Pair</h3>
-          <p class="prod__spec">Large capacity · steam · stackable. Sold as a matched set.</p>
-          <div class="prod__foot">
-            <div class="prod__price"><span class="prod__was">$1,899</span><span class="prod__now">$1,199</span></div>
-            <button class="prod__ask" data-ask="Is the front-load washer and dryer set still on the floor?">Ask <span class="arr">→</span></button>
-          </div>
-        </div>
-      </article>
-
-      <!-- Side-by-side -->
-      <article class="prod c4 reveal d1">
-        <div class="prod__media">
-          <span class="prod__deal">Scratch &amp; Dent</span>
-          <image-slot id="prod-4" shape="rect"
-            src="https://images.unsplash.com/photo-1630459065645-549fe5a56db4?w=1000&amp;q=80&amp;auto=format&amp;fit=crop"
-            placeholder="Side-by-side stainless refrigerator"></image-slot>
-        </div>
-        <div class="prod__body">
-          <span class="prod__cat">Refrigerator · Side-by-Side</span>
-          <h3 class="prod__name">25 cu. ft. Side-by-Side Stainless</h3>
-          <p class="prod__spec">In-door ice &amp; water · spill-proof shelves · small rear dent.</p>
-          <div class="prod__foot">
-            <div class="prod__price"><span class="prod__was">$1,699</span><span class="prod__now">$999</span></div>
-            <button class="prod__ask" data-ask="Is the side-by-side stainless fridge available?">Ask <span class="arr">→</span></button>
-          </div>
-        </div>
-      </article>
-
-      <!-- Dishwasher -->
-      <article class="prod c4 reveal d2">
-        <div class="prod__media">
-          <span class="prod__deal new">Brand New</span>
-          <image-slot id="prod-5" shape="rect"
-            src="https://images.unsplash.com/photo-1758631130778-42d518bf13aa?w=1000&amp;q=80&amp;auto=format&amp;fit=crop"
-            placeholder="Stainless tub dishwasher"></image-slot>
-        </div>
-        <div class="prod__body">
-          <span class="prod__cat">Dishwasher</span>
-          <h3 class="prod__name">Top-Control Stainless Dishwasher</h3>
-          <p class="prod__spec">Third rack · 45 dBA quiet wash · stainless tub. Factory warranty.</p>
-          <div class="prod__foot">
-            <div class="prod__price"><span class="prod__was">$849</span><span class="prod__now">$599</span></div>
-            <button class="prod__ask" data-ask="Do you have the stainless dishwasher in stock?">Ask <span class="arr">→</span></button>
-          </div>
-        </div>
-      </article>
+    <div class="locgrid locgrid--showroom">
+      <figure class="loctile reveal">
+        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/showroom/showroom-range-row-erie-blvd-window.jpg" alt="Row of new and scratch-and-dent ranges on the retail showroom floor, with the front window looking out onto Erie Blvd" />
+        <figcaption class="loctile__cap">Range floor, Erie Blvd</figcaption>
+      </figure>
+      <figure class="loctile reveal d1">
+        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/showroom/showroom-stackable-laundry-combos.jpg" alt="Stackable GE washer and dryer combos in the retail showroom, with handwritten yellow Was-and-Now price tags" />
+        <figcaption class="loctile__cap">Stackable laundry combos</figcaption>
+      </figure>
+      <figure class="loctile reveal d2">
+        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/showroom/showroom-top-load-washers-row-tags.jpg" alt="Row of top-load washers in the retail showroom, each marked with handwritten yellow Was-and-Now price tags" />
+        <figcaption class="loctile__cap">Top-load washers — Was / Now</figcaption>
+      </figure>
+      <figure class="loctile reveal d3">
+        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/showroom/showroom-front-load-laundry-stack-wall.jpg" alt="A wall of stacked front-load washer and dryer units in the retail showroom" />
+        <figcaption class="loctile__cap">Front-load stack wall</figcaption>
+      </figure>
+      <figure class="loctile reveal">
+        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/showroom/showroom-front-load-pairs.jpg" alt="Matched front-load washer and dryer pairs on display in the retail showroom" />
+        <figcaption class="loctile__cap">Matched front-load pairs</figcaption>
+      </figure>
+      <figure class="loctile reveal d1">
+        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/showroom/showroom-top-load-washers-pair.jpg" alt="Clean staging of a top-load washer pair on the retail showroom floor, with plants in the background" />
+        <figcaption class="loctile__cap">On the floor this week</figcaption>
+      </figure>
+      <figure class="loctile reveal d2">
+        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/showroom/showroom-range-aisle-street-view.jpg" alt="Aisle of ranges in stainless, black-stainless, and white finishes on the retail showroom floor" />
+        <figcaption class="loctile__cap">Ranges, all finishes</figcaption>
+      </figure>
+      <figure class="loctile reveal d3">
+        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/showroom/showroom-laundry-and-fridge-wide.jpg" alt="Wide view across the retail showroom aisle showing both laundry and refrigerator sections" />
+        <figcaption class="loctile__cap">Laundry and refrigerators</figcaption>
+      </figure>
     </div>
 
-    <div class="gallery__cta reveal">
-      <button class="btn btn--dark" data-ask="What's on the floor today? I'm looking for the best deals.">See What's On The Floor Today <span class="arr">→</span></button>
+    <div class="loc-cta reveal">
+      <p class="loc-cta__txt">Stop by the showroom — 2760 Erie Blvd E. Mon–Sat 10–7, Sun 10–6.</p>
+      <div class="loc-cta__btns">
+        <a href="tel:+13158889998" class="btn btn--primary">Call (315) 888-9998 <span class="arr">→</span></a>
+        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=2760+Erie+Blvd+E,+Syracuse,+NY+13224" target="_blank" rel="noopener" class="btn btn--ghost">Get directions <span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== WAREHOUSE (Wholesale) ====================== -->
+<section class="section section--navy locsec" id="warehouse">
+  <div class="wrap">
+    <div class="gallery__head">
+      <div class="reveal">
+        <span class="eyebrow eyebrow--light"><i class="star"></i> On The Warehouse Floor</span>
+        <h2>Wholesale pricing for the people moving real volume.</h2>
+      </div>
+      <p class="reveal d1">Landlords, contractors, flippers, builders — if you're outfitting a property, the wholesale warehouse at 835 Canal St is your shortcut. Cavernous aisles of new and scratch &amp; dent fridges, ranges, washers, dryers, dishwashers. Pricing is set up for volume. Call ahead so we can stage what you need.</p>
+    </div>
+
+    <div class="locgrid locgrid--warehouse">
+      <figure class="loctile reveal">
+        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/warehouse/warehouse-fridge-aisle-stainless.jpg" alt="Long aisle of stainless side-by-side and french-door refrigerators in the Canal St wholesale warehouse" />
+        <figcaption class="loctile__cap">Stainless fridge aisle, Canal St</figcaption>
+      </figure>
+      <figure class="loctile reveal d1">
+        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/warehouse/warehouse-fridge-aisle-side-by-side.jpg" alt="Cavernous wholesale warehouse aisle of side-by-side and french-door refrigerators in mixed finishes" />
+        <figcaption class="loctile__cap">Side-by-side and french-door</figcaption>
+      </figure>
+      <figure class="loctile reveal d2">
+        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/warehouse/warehouse-fridge-aisle-top-mount.jpg" alt="Top-mount refrigerators stacked for volume pricing in the wholesale warehouse" />
+        <figcaption class="loctile__cap">Top-mount fridges, volume pricing</figcaption>
+      </figure>
+      <figure class="loctile reveal">
+        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/warehouse/warehouse-dishwasher-cluster.jpg" alt="Cluster of dishwashers ready to ship from the wholesale warehouse" />
+        <figcaption class="loctile__cap">Dishwashers ready to move</figcaption>
+      </figure>
+      <figure class="loctile reveal d1">
+        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/warehouse/warehouse-dishwasher-rack-handwritten-tags.jpg" alt="Handmade lumber shelving holding dishwashers in the wholesale warehouse, with handwritten yellow Was-and-Now price tags" />
+        <figcaption class="loctile__cap">Was / Now — every price is real</figcaption>
+      </figure>
+      <figure class="loctile reveal d2">
+        <img class="loctile__img" loading="lazy" decoding="async" src="assets/photos/delivery/delivery-inside-truck-laundry-load.jpg" alt="Inside the delivery semi-truck, packed with crated washers and dryers leaving the Canal St warehouse" />
+        <figcaption class="loctile__cap">Delivery day — leaving Canal St</figcaption>
+      </figure>
+    </div>
+
+    <div class="loc-cta reveal">
+      <p class="loc-cta__txt">Need bulk pricing? Tell us what you're outfitting and we'll quote it.</p>
+      <div class="loc-cta__btns">
+        <a href="tel:+13158889998" class="btn btn--primary">Call (315) 888-9998 <span class="arr">→</span></a>
+        <a href="sms:+13158889998" class="btn btn--ghost">Text us <span class="arr">→</span></a>
+        <a href="mailto:cnyappliances4less@gmail.com" class="btn btn--ghost">Email us <span class="arr">→</span></a>
+      </div>
     </div>
   </div>
 </section>
@@ -380,7 +370,8 @@
     </div>
     <div class="footer__col">
       <h4>Explore</h4>
-      <a href="#inventory">Showroom</a>
+      <a href="#showroom">Showroom</a>
+      <a href="#warehouse">Warehouse</a>
       <a href="#why">The Savings Promise</a>
       <a href="#delivery">Delivery &amp; Haul-Away</a>
       <a href="#reviews">Reviews</a>

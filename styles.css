@@ -285,46 +285,62 @@ a{color:inherit;text-decoration:none}
 .savings__stat .n em{font-style:normal;color:var(--crimson);font-size:.6em;vertical-align:.15em}
 
 /* =====================================================================
-   SHOWROOM GALLERY
+   SHOWROOM GALLERY HEADERS (shared by old gallery + new location galleries)
    ===================================================================== */
 .gallery__head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;
   flex-wrap:wrap;margin-bottom:clamp(2.5rem,5vw,4rem)}
 .gallery__head h2{font-family:var(--font-display);font-weight:600;font-size:clamp(2.2rem,4.6vw,3.8rem);
-  line-height:1;letter-spacing:-.02em;max-width:16ch}
-.gallery__head p{color:var(--ink-soft);max-width:30em;line-height:1.65;font-weight:300}
-.grid-prod{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(1rem,2vw,1.7rem)}
-.prod{position:relative;background:var(--paper);border:1px solid var(--ivory-2);
-  border-radius:4px;overflow:hidden;display:flex;flex-direction:column;
-  transition:transform .55s var(--ease),box-shadow .55s var(--ease),border-color .4s}
-.prod:hover{transform:translateY(-6px);box-shadow:0 34px 60px -34px rgba(10,20,40,.4);border-color:var(--gold)}
-.prod__media{position:relative;background:linear-gradient(150deg,var(--steel-1),var(--steel-2));overflow:hidden}
-.prod__media image-slot{width:100%;height:100%}
-.prod__deal{position:absolute;top:.9rem;left:.9rem;z-index:3;background:var(--crimson);color:var(--ivory);
-  font-size:.64rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.45em .8em;border-radius:2px}
-.prod__deal.new{background:var(--navy-900);color:var(--gold-bright)}
-.prod__body{padding:1.4rem 1.4rem 1.5rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
-.prod__cat{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep);font-weight:700}
-.prod__name{font-family:var(--font-display);font-weight:600;font-size:1.32rem;line-height:1.08;letter-spacing:-.01em}
-.prod__spec{font-size:.88rem;color:var(--mute);line-height:1.5;font-weight:300}
-.prod__foot{margin-top:auto;padding-top:1.1rem;display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;
-  border-top:1px solid var(--ivory-2)}
-.prod__price{display:flex;align-items:baseline;gap:.55rem}
-.prod__was{font-size:.92rem;color:var(--mute);text-decoration:line-through}
-.prod__now{font-family:var(--font-display);font-weight:700;font-size:1.5rem;color:var(--crimson)}
-.prod__ask{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--navy-700);
-  display:inline-flex;align-items:center;gap:.4em;cursor:pointer;background:none;border:none;font-family:var(--font-sans);
-  transition:color .35s}
-.prod__ask:hover{color:var(--crimson)}
-.prod__ask .arr{transition:transform .4s var(--ease)}
-.prod__ask:hover .arr{transform:translateX(3px)}
-/* editorial spans */
-.prod.c4{grid-column:span 4}
-.prod.c6{grid-column:span 6}
-.prod.c8{grid-column:span 8}
-.prod.feature .prod__media{aspect-ratio:16/12}
-.prod .prod__media{aspect-ratio:4/3.4}
-.prod.tall .prod__media{aspect-ratio:3/3.5}
-.gallery__cta{margin-top:clamp(2.5rem,5vw,4rem);display:flex;justify-content:center}
+  line-height:1;letter-spacing:-.02em;max-width:18ch;margin-top:1rem}
+.gallery__head p{color:var(--ink-soft);max-width:32em;line-height:1.65;font-weight:300}
+.gallery__head p a{color:var(--crimson);font-weight:600}
+.gallery__head p a:hover{color:var(--crimson-bright)}
+/* Navy-section variant — paragraph + h2 need ivory tones to stay readable. */
+.section--navy .gallery__head h2{color:var(--ivory)}
+.section--navy .gallery__head p{color:rgba(247,242,232,.74)}
+.section--navy .gallery__head p a{color:var(--gold-bright)}
+.section--navy .gallery__head p a:hover{color:var(--gold)}
+
+/* =====================================================================
+   LOCATION GALLERIES (Showroom + Warehouse)
+   ---------------------------------------------------------------------
+   Real-photo gallery used by #showroom (4 cols x 2 rows) and #warehouse
+   (3 cols x 2 rows). Each tile is a 4:3 cover image with a stamped
+   uppercase caption — hidden behind a navy gradient on desktop, revealed
+   on hover; always visible as a navy strip below the image on mobile.
+   ===================================================================== */
+.locgrid{display:grid;gap:clamp(1rem,2vw,1.7rem)}
+.locgrid--showroom{grid-template-columns:repeat(4,1fr)}
+.locgrid--warehouse{grid-template-columns:repeat(3,1fr)}
+
+.loctile{position:relative;border-radius:4px;overflow:hidden;
+  border:1px solid var(--ivory-2);background:var(--ivory-2);
+  box-shadow:0 14px 36px -22px rgba(10,20,40,.45);
+  transition:transform .55s var(--ease),box-shadow .55s var(--ease)}
+.section--navy .loctile{border-color:rgba(247,242,232,.08);box-shadow:0 18px 44px -22px rgba(0,0,0,.5)}
+.loctile__img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:var(--ivory-2)}
+.loctile__cap{position:absolute;left:0;right:0;bottom:0;margin:0;
+  padding:1.6em 1.1em 1em;color:var(--ivory);
+  font-family:var(--font-sans);font-weight:700;font-size:.72rem;
+  letter-spacing:.12em;text-transform:uppercase;line-height:1.2;
+  background:linear-gradient(180deg,rgba(10,20,40,0) 0%,rgba(10,20,40,.7) 100%);
+  opacity:0;transition:opacity .35s var(--ease);pointer-events:none}
+
+@media (hover:hover){
+  .loctile:hover{transform:scale(1.03);box-shadow:0 28px 56px -22px rgba(10,20,40,.6);z-index:2}
+  .loctile:hover .loctile__cap{opacity:1}
+}
+
+/* LOCATION CTA PANEL — used at the bottom of each location section. */
+.loc-cta{margin-top:clamp(2.5rem,5vw,4rem);
+  background:linear-gradient(140deg,var(--navy-700),var(--navy-900));
+  color:var(--ivory);
+  padding:clamp(1.6rem,3vw,2.4rem) clamp(1.6rem,3vw,2.8rem);
+  border-radius:5px;border:1px solid rgba(196,160,82,.35);
+  box-shadow:0 24px 60px -30px rgba(10,20,40,.6);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.4rem}
+.loc-cta__txt{font-family:var(--font-display);font-weight:500;font-style:italic;
+  font-size:clamp(1.1rem,1.8vw,1.4rem);line-height:1.35;color:var(--ivory);max-width:38em}
+.loc-cta__btns{display:flex;gap:.7rem;flex-wrap:wrap}
 
 /* =====================================================================
    DELIVERY (navy cinematic)
@@ -431,7 +447,8 @@ html.js .reveal{opacity:0;transform:translateY(34px);transition:opacity 1s var(-
 html.js .reveal.in{opacity:1;transform:none}
 html.js .reveal.d1{transition-delay:.08s}html.js .reveal.d2{transition-delay:.16s}html.js .reveal.d3{transition-delay:.24s}html.js .reveal.d4{transition-delay:.32s}
 @media (prefers-reduced-motion:reduce){html.js .reveal{opacity:1;transform:none;transition:none}
-  .brands__track,.hero__scroll .dot::after,.chat-launcher__mascot,.chat-launcher__pulse{animation:none}}
+  .brands__track,.hero__scroll .dot::after,.chat-launcher__mascot,.chat-launcher__pulse,.loctile,.loctile__cap{animation:none;transition:none}
+  .loctile:hover{transform:none}}
 
 /* =====================================================================
    CHAT WIDGET
@@ -534,10 +551,10 @@ image-slot{--is-bg:linear-gradient(150deg,var(--steel-1),var(--steel-2));}
   .reviews__lead{grid-template-columns:1fr}
   .visit .wrap{grid-template-columns:1fr}
   .footer__top{grid-template-columns:1fr 1fr}
+  .locgrid--showroom,.locgrid--warehouse{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:720px){
   .svc--a,.svc--b{grid-column:1/13;margin-top:0}
-  .prod.c4,.prod.c6,.prod.c8{grid-column:span 12}
   .savings__strip{grid-template-columns:1fr 1fr}
   .reviews__row{grid-template-columns:1fr}
   .addr-grid{grid-template-columns:1fr}
@@ -545,4 +562,12 @@ image-slot{--is-bg:linear-gradient(150deg,var(--steel-1),var(--steel-2));}
   .trust__sep{display:none}
   .chat-launcher__bubble{display:none}
   .chat-launcher__btn{width:140px;height:165px}
+  .locgrid--showroom,.locgrid--warehouse{grid-template-columns:1fr}
+  /* On mobile, the caption sits as an always-visible navy strip BELOW
+     each tile — not a hover overlay. */
+  .loctile{overflow:visible}
+  .loctile__img{border-radius:4px 4px 0 0}
+  .loctile__cap{position:static;opacity:1;background:var(--navy-900);
+    padding:.72em 1em;border-radius:0 0 4px 4px;font-size:.7rem}
+  .loc-cta{flex-direction:column;align-items:flex-start}
 }
